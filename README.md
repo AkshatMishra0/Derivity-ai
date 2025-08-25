@@ -10,10 +10,16 @@
 - 📊 **Portfolio Optimization** - Intelligent asset allocation and risk management  
 - 📈 **Predictive Analytics** - Market forecasting using machine learning
 - ⚡ **Real-time Insights** - Live market data and instant decision support
+- 📋 **About Page** - Comprehensive information about our team, mission, and technology
 
 ## 🌐 Live Demo
 
 **Visit the live website:** [https://akshatmishra0.github.io/Derivity-ai/](https://akshatmishra0.github.io/Derivity-ai/)
+
+## 📄 Pages
+
+- **Home** (`index.html`) - Landing page with brand introduction and key features
+- **About** (`about.html`) - Detailed information about our company, team, and values
 
 ## 🎨 Design Features
 
@@ -21,12 +27,18 @@
 - **Responsive design** that works on all devices
 - **Interactive elements** with hover effects and particle systems
 - **Professional branding** with elegant typography and color scheme
+- **React Components** for dynamic content rendering
+- **Animated Charts** for data visualization
+- **AOS Animations** for scroll-triggered effects
 
 ## 🛠️ Technologies Used
 
 - **HTML5** - Semantic markup and structure
 - **CSS3** - Advanced styling with animations and gradients
 - **JavaScript** - Interactive features and dynamic effects
+- **React** - Component-based UI for dynamic content
+- **Chart.js** - Interactive data visualization
+- **AOS Library** - Animate On Scroll effects
 - **Modern Web APIs** - For enhanced user experience
 
 ## 🚀 Quick Start

@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Derivity AI | Intelligent Investment Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- React and Babel for JSX transformation -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Header */
+        .nav-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(78, 205, 196, 0.1);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #e6e6e6 0%, #ffffff 25%, #a1a1a1 50%, #ffffff 75%, #e6e6e6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-logo .ai-text {
+            color: #4ecdc4;
+            margin-left: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #4ecdc4;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #4ecdc4;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem;
+            margin-top: 80px;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #e6e6e6 0%, #ffffff 25%, #a1a1a1 50%, #ffffff 75%, #e6e6e6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #4ecdc4;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            text-shadow: 0 0 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #ccc;
+            margin-bottom: 3rem;
+        }
+
+        /* Background Effects */
+        .background-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(78, 205, 196, 0.8);
+            border-radius: 50%;
+            animation: float 8s infinite ease-in-out;
+        }
+
+        /* Mission Section */
+        .mission-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.05) 0%, rgba(0, 0, 0, 0.8) 100%);
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #ffffff, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .mission-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .mission-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccc;
+        }
+
+        .mission-text h3 {
+            color: #4ecdc4;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .mission-visual {
+            position: relative;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 5rem 2rem;
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .team-member {
+            background: rgba(78, 205, 196, 0.08);
+            border: 1px solid rgba(78, 205, 196, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-member::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(78, 205, 196, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            background: rgba(78, 205, 196, 0.15);
+            border-color: rgba(78, 205, 196, 0.3);
+            box-shadow: 0 20px 40px rgba(78, 205, 196, 0.2);
+        }
+
+        .team-member:hover::before {
+            left: 100%;
+        }
+
+        .member-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #4ecdc4, #45b7d1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #000;
+            font-weight: 600;
+        }
+
+        .member-name {
+            color: #ffffff;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .member-role {
+            color: #4ecdc4;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .member-bio {
+            color: #ccc;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Technology Section */
+        .technology-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(78, 205, 196, 0.05) 100%);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tech-card {
+            background: rgba(78, 205, 196, 0.08);
+            border: 1px solid rgba(78, 205, 196, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            background: rgba(78, 205, 196, 0.15);
+            border-color: rgba(78, 205, 196, 0.3);
+        }
+
+        .tech-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #4ecdc4, #45b7d1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .tech-title {
+            color: #ffffff;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .tech-description {
+            color: #ccc;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Values Section */
+        .values-section {
+            padding: 5rem 2rem;
+            background: rgba(0, 0, 0, 0.95);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .value-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .value-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2rem;
+            background: linear-gradient(135deg, #4ecdc4, #45b7d1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #000;
+        }
+
+        .value-title {
+            color: #4ecdc4;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .value-description {
+            color: #ccc;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Interactive Chart Container */
+        .chart-container {
+            background: rgba(78, 205, 196, 0.05);
+            border: 1px solid rgba(78, 205, 196, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.98);
+            border-top: 1px solid rgba(78, 205, 196, 0.1);
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #e6e6e6 0%, #ffffff 25%, #a1a1a1 50%, #ffffff 75%, #e6e6e6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-text {
+            color: #888;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #4ecdc4;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .mission-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-section {
+                margin-top: 60px;
+            }
+        }
+
+        /* Animation Keyframes */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px) rotate(0deg);
+                opacity: 0.1;
+            }
+            25% {
+                transform: translateY(-20px) translateX(10px) rotate(90deg);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-40px) translateX(-10px) rotate(180deg);
+                opacity: 0.2;
+            }
+            75% {
+                transform: translateY(-20px) translateX(-15px) rotate(270deg);
+                opacity: 0.3;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="nav-header">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">
+                DERIVITY<span class="ai-text">AI</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="background-particles" id="backgroundParticles"></div>
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+            <h1 class="hero-title">About Derivity AI</h1>
+            <p class="hero-subtitle">Pioneering the Future of Intelligent Investing</p>
+            <p class="hero-description">
+                We are a team of financial experts, data scientists, and technology innovators 
+                dedicated to democratizing access to sophisticated investment strategies through 
+                artificial intelligence and machine learning.
+            </p>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission-section">
+        <div class="section-container">
+            <h2 class="section-title" data-aos="fade-up">Our Mission</h2>
+            <div class="mission-content">
+                <div class="mission-text" data-aos="fade-right" data-aos-delay="200">
+                    <h3>Revolutionizing Investment Intelligence</h3>
+                    <p>
+                        At Derivity AI, we believe that advanced investment strategies shouldn't be 
+                        limited to institutional investors. Our mission is to democratize access to 
+                        sophisticated AI-powered investment tools, making them available to individual 
+                        investors and smaller institutions.
+                    </p>
+                    <br>
+                    <p>
+                        We combine cutting-edge machine learning algorithms with deep financial market 
+                        expertise to create intelligent systems that can analyze vast amounts of market 
+                        data, identify patterns, and make informed investment decisions at unprecedented speed and accuracy.
+                    </p>
+                </div>
+                <div class="mission-visual" data-aos="fade-left" data-aos-delay="400">
+                    <div class="chart-container">
+                        <canvas id="missionChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="section-container">
+            <h2 class="section-title" data-aos="fade-up">Our Team</h2>
+            <div id="teamGrid" class="team-grid">
+                <!-- Team members will be rendered by React component -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section class="technology-section">
+        <div class="section-container">
+            <h2 class="section-title" data-aos="fade-up">Our Technology</h2>
+            <div id="technologyGrid" class="tech-grid">
+                <!-- Technology cards will be rendered by React component -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section">
+        <div class="section-container">
+            <h2 class="section-title" data-aos="fade-up">Our Values</h2>
+            <div id="valuesGrid" class="values-grid">
+                <!-- Values will be rendered by React component -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">DERIVITY<span style="color: #4ecdc4;">AI</span></div>
+            <p class="footer-text">Intelligent Investment Solutions for the Future</p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="#contact">Contact</a>
+                <a href="#privacy">Privacy</a>
+                <a href="#terms">Terms</a>
+            </div>
+            <p style="color: #666; font-size: 0.9rem;">
+                © 2025 Derivity AI. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- React Components Script -->
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Team Members Component
+        const TeamMember = ({ name, role, bio, avatar, delay }) => (
+            <div className="team-member" data-aos="fade-up" data-aos-delay={delay}>
+                <div className="member-avatar">{avatar}</div>
+                <h3 className="member-name">{name}</h3>
+                <p className="member-role">{role}</p>
+                <p className="member-bio">{bio}</p>
+            </div>
+        );
+
+        const TeamGrid = () => {
+            const teamMembers = [
+                {
+                    name: "Dr. Sarah Chen",
+                    role: "Chief AI Officer",
+                    bio: "Former Goldman Sachs quantitative researcher with 15+ years in algorithmic trading and machine learning applications in finance.",
+                    avatar: "SC"
+                },
+                {
+                    name: "Michael Rodriguez",
+                    role: "Head of Technology",
+                    bio: "Ex-Google engineer specializing in distributed systems and real-time data processing. Built scalable trading infrastructure for top-tier firms.",
+                    avatar: "MR"
+                },
+                {
+                    name: "Dr. James Park",
+                    role: "Chief Research Officer",
+                    bio: "PhD in Financial Mathematics from MIT. Pioneer in applying deep learning to portfolio optimization and risk management.",
+                    avatar: "JP"
+                },
+                {
+                    name: "Lisa Thompson",
+                    role: "Head of Product",
+                    bio: "Former product lead at Bloomberg Terminal. Expert in designing intuitive interfaces for complex financial data and analytics.",
+                    avatar: "LT"
+                }
+            ];
+
+            return (
+                <div className="team-grid">
+                    {teamMembers.map((member, index) => (
+                        <TeamMember 
+                            key={index}
+                            {...member}
+                            delay={index * 200}
+                        />
+                    ))}
+                </div>
+            );
+        };
+
+        // Technology Cards Component
+        const TechnologyCard = ({ title, description, icon, delay }) => (
+            <div className="tech-card" data-aos="zoom-in" data-aos-delay={delay}>
+                <div className="tech-icon">{icon}</div>
+                <h3 className="tech-title">{title}</h3>
+                <p className="tech-description">{description}</p>
+            </div>
+        );
+
+        const TechnologyGrid = () => {
+            const technologies = [
+                {
+                    title: "Machine Learning",
+                    description: "Advanced neural networks and ensemble methods for pattern recognition and predictive modeling in financial markets.",
+                    icon: "🧠"
+                },
+                {
+                    title: "Real-time Processing",
+                    description: "Ultra-low latency data processing systems capable of analyzing thousands of market events per second.",
+                    icon: "⚡"
+                },
+                {
+                    title: "Risk Management",
+                    description: "Sophisticated risk models using Monte Carlo simulations and stress testing for comprehensive portfolio protection.",
+                    icon: "🛡️"
+                },
+                {
+                    title: "Cloud Infrastructure",
+                    description: "Scalable, secure cloud architecture ensuring 99.99% uptime and enterprise-grade data protection.",
+                    icon: "☁️"
+                },
+                {
+                    title: "Blockchain Integration",
+                    description: "Smart contract automation and DeFi protocol integration for next-generation financial products.",
+                    icon: "⛓️"
+                },
+                {
+                    title: "Natural Language Processing",
+                    description: "Sentiment analysis and news processing to incorporate market sentiment into investment decisions.",
+                    icon: "📰"
+                }
+            ];
+
+            return (
+                <div className="tech-grid">
+                    {technologies.map((tech, index) => (
+                        <TechnologyCard 
+                            key={index}
+                            {...tech}
+                            delay={index * 100}
+                        />
+                    ))}
+                </div>
+            );
+        };
+
+        // Values Component
+        const ValueItem = ({ title, description, icon, delay }) => (
+            <div className="value-item" data-aos="fade-up" data-aos-delay={delay}>
+                <div className="value-icon">{icon}</div>
+                <h3 className="value-title">{title}</h3>
+                <p className="value-description">{description}</p>
+            </div>
+        );
+
+        const ValuesGrid = () => {
+            const values = [
+                {
+                    title: "Innovation",
+                    description: "We continuously push the boundaries of what's possible in financial technology, always seeking new ways to improve investment outcomes.",
+                    icon: "💡"
+                },
+                {
+                    title: "Transparency",
+                    description: "We believe in clear, honest communication about our methods, performance, and limitations. No black boxes, no hidden agendas.",
+                    icon: "🔍"
+                },
+                {
+                    title: "Security",
+                    description: "Protecting our clients' data and investments is paramount. We employ military-grade security measures and best practices.",
+                    icon: "🔒"
+                },
+                {
+                    title: "Excellence",
+                    description: "We strive for excellence in everything we do, from our algorithms to our customer service, setting the highest standards.",
+                    icon: "⭐"
+                }
+            ];
+
+            return (
+                <div className="values-grid">
+                    {values.map((value, index) => (
+                        <ValueItem 
+                            key={index}
+                            {...value}
+                            delay={index * 200}
+                        />
+                    ))}
+                </div>
+            );
+        };
+
+        // Render React components
+        ReactDOM.render(<TeamGrid />, document.getElementById('teamGrid'));
+        ReactDOM.render(<TechnologyGrid />, document.getElementById('technologyGrid'));
+        ReactDOM.render(<ValuesGrid />, document.getElementById('valuesGrid'));
+    </script>
+
+    <script>
+        // Initialize AOS (Animate On Scroll)
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 100
+        });
+
+        // Create background particles
+        function createBackgroundParticles() {
+            const container = document.getElementById('backgroundParticles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 4 + 1;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 8;
+                const duration = Math.random() * 10 + 8;
+                
+                particle.style.cssText = `
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${posX}%;
+                    top: ${posY}%;
+                    animation-delay: ${delay}s;
+                    animation-duration: ${duration}s;
+                `;
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // Create interactive chart
+        function createMissionChart() {
+            const ctx = document.getElementById('missionChart').getContext('2d');
+            
+            const chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['2020', '2021', '2022', '2023', '2024', '2025'],
+                    datasets: [{
+                        label: 'AI Investment Performance',
+                        data: [100, 125, 148, 167, 195, 235],
+                        borderColor: '#4ecdc4',
+                        backgroundColor: 'rgba(78, 205, 196, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: '#4ecdc4',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 6
+                    }, {
+                        label: 'Traditional Investment',
+                        data: [100, 108, 115, 122, 135, 145],
+                        borderColor: '#888888',
+                        backgroundColor: 'rgba(136, 136, 136, 0.1)',
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.4,
+                        pointBackgroundColor: '#888888',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#ffffff',
+                                font: {
+                                    family: 'Inter'
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: '#888888'
+                            },
+                            grid: {
+                                color: 'rgba(78, 205, 196, 0.1)'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#888888',
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(78, 205, 196, 0.1)'
+                            }
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    }
+                }
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        function setupSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Navbar scroll effect
+        function setupNavbarScroll() {
+            const navbar = document.querySelector('.nav-header');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    navbar.style.background = 'rgba(0, 0, 0, 0.98)';
+                    navbar.style.backdropFilter = 'blur(20px)';
+                } else {
+                    navbar.style.background = 'rgba(0, 0, 0, 0.95)';
+                    navbar.style.backdropFilter = 'blur(10px)';
+                }
+            });
+        }
+
+        // Mouse parallax effect
+        function setupParallaxEffect() {
+            document.addEventListener('mousemove', (e) => {
+                const mouseX = e.clientX / window.innerWidth;
+                const mouseY = e.clientY / window.innerHeight;
+                
+                const particles = document.querySelectorAll('.particle');
+                particles.forEach((particle, index) => {
+                    const speed = (index % 3 + 1) * 0.5;
+                    const x = (mouseX - 0.5) * speed;
+                    const y = (mouseY - 0.5) * speed;
+                    particle.style.transform = `translate(${x}px, ${y}px)`;
+                });
+            });
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            createBackgroundParticles();
+            setTimeout(createMissionChart, 1000); // Delay to ensure canvas is ready
+            setupSmoothScrolling();
+            setupNavbarScroll();
+            setupParallaxEffect();
+        });
+
+        // Add intersection observer for counter animations
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        const duration = 2000;
+                        const start = 0;
+                        const increment = target / (duration / 16);
+                        
+                        let current = start;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            counter.textContent = Math.floor(current);
+                            
+                            if (current >= target) {
+                                counter.textContent = target;
+                                clearInterval(timer);
+                            }
+                        }, 16);
+                        
+                        observer.unobserve(counter);
+                    }
+                });
+            });
+            
+            counters.forEach(counter => observer.observe(counter));
+        }
+
+        // Call counter animation when page loads
+        setTimeout(animateCounters, 1000);
+    </script>
+</body>
+</html>
