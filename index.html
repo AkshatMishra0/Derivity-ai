@@ -108,13 +108,6 @@
             opacity: 0.8;
         }
 
-        .typewriter {
-            overflow: hidden;
-            border-right: 3px solid #4ecdc4;
-            white-space: nowrap;
-            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
-        }
-
         .tech-border {
             width: 320px;
             height: 320px;
@@ -294,6 +287,70 @@
             letter-spacing: 0.05em;
         }
 
+        .google-apps {
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .google-apps-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #4ecdc4;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(78, 205, 196, 0.3);
+        }
+
+        .google-apps-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .google-app {
+            background: rgba(78, 205, 196, 0.05);
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(78, 205, 196, 0.1);
+            transition: all 0.3s ease;
+            min-width: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .google-app:hover {
+            transform: translateY(-5px);
+            background: rgba(78, 205, 196, 0.1);
+            border-color: rgba(78, 205, 196, 0.2);
+            box-shadow: 0 5px 20px rgba(78, 205, 196, 0.15);
+        }
+
+        .google-app-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .google-app-icon path {
+            transition: all 0.3s ease;
+        }
+
+        .google-app:hover .google-app-icon path {
+            fill: #4ecdc4 !important;
+        }
+
+        .google-app-name {
+            font-size: 0.75rem;
+            color: #888;
+            font-weight: 400;
+        }
+
         @keyframes glowing {
             0% { background-position: 0 0; }
             50% { background-position: 400% 0; }
@@ -309,16 +366,6 @@
                 transform: translate(-50%, -50%) scale(1.1);
                 opacity: 0.2;
             }
-        }
-
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        @keyframes blink-caret {
-            from, to { border-color: transparent; }
-            50% { border-color: #4ecdc4; }
         }
 
         @keyframes float {
@@ -429,108 +476,9 @@
                 max-width: 250px;
             }
         }
-        /* Navigation Header */
-        .nav-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(78, 205, 196, 0.1);
-            z-index: 1000;
-            padding: 1rem 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .nav-logo {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, #e6e6e6 0%, #ffffff 25%, #a1a1a1 50%, #ffffff 75%, #e6e6e6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-decoration: none;
-        }
-
-        .nav-logo .ai-text {
-            color: #4ecdc4;
-            margin-left: 0.5rem;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: 400;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: #4ecdc4;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #4ecdc4;
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .main-container {
-            margin-top: 80px;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .main-container {
-                margin-top: 60px;
-            }
-        }
     </style>
 </head>
 <body>
-    <!-- Navigation Header -->
-    <nav class="nav-header">
-        <div class="nav-content">
-            <a href="index.html" class="nav-logo">
-                DERIVITY<span class="ai-text">AI</span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="main-container">
     <div class="logo-container">
         <div class="tech-border"></div>
         <div class="data-particles" id="dataParticles"></div>
@@ -539,11 +487,11 @@
         <div class="logo-main">
             DERIVITY<span class="logo-ai">AI</span>
         </div>
-        <div class="tagline typewriter">Smart Finance, Smarter Future</div>
+        <div class="tagline">Smart Finance, Smarter Future</div>
         <div class="coming-soon">COMING SOON</div>
         
-        <div class="brand-statement">
-            Derivity AI revolutionizes financial markets through advanced artificial intelligence. We combine machine learning with quantitative finance to deliver predictive analytics, automated trading strategies, and intelligent portfolio optimization for the next generation of investors.
+                <div class="brand-statement">
+            Experience the future of finance with our advanced AI assistants. Designed specifically for finance professionals and enthusiasts, Derivity AI seamlessly integrates with your daily tools and apps to provide intelligent insights, automated analysis, and smart decision-making support for all your financial needs.
         </div>
         
         <div class="key-features">
@@ -553,7 +501,7 @@
                         <path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/>
                     </svg>
                 </div>
-                <div class="feature-text">AI-Powered Trading</div>
+                <div class="feature-text">Smart Financial AI</div>
             </div>
             <div class="feature">
                 <div class="feature-icon">
@@ -561,7 +509,7 @@
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/>
                     </svg>
                 </div>
-                <div class="feature-text">Portfolio Optimization</div>
+                <div class="feature-text">All-Purpose Assistant</div>
             </div>
             <div class="feature">
                 <div class="feature-icon">
@@ -569,7 +517,7 @@
                         <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
                     </svg>
                 </div>
-                <div class="feature-text">Predictive Analytics</div>
+                <div class="feature-text">Google Workspace Sync</div>
             </div>
             <div class="feature">
                 <div class="feature-icon">
@@ -577,28 +525,73 @@
                         <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
                     </svg>
                 </div>
-                <div class="feature-text">Real-time Insights</div>
+                <div class="feature-text">Instant Productivity</div>
+            </div>
+        </div>
+
+        <div class="google-apps">
+            <div class="google-apps-title">Seamless Integration</div>
+            <div class="google-apps-grid">
+                <div class="google-app">
+                    <svg class="google-app-icon" viewBox="0 0 24 24">
+                        <path fill="#4ecdc4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#72e8df" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#96f0ea" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="#3bb8b0" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    <span class="google-app-name">Google</span>
+                </div>
+                <div class="google-app">
+                    <svg class="google-app-icon" viewBox="0 0 24 24">
+                        <path fill="#4ecdc4" d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-.904.732-1.636 1.636-1.636h3.819l6.545 4.91 6.545-4.91h3.819A1.636 1.636 0 0 1 24 5.457z"/>
+                        <path fill="#72e8df" d="M0 19.366V5.457c0-.904.732-1.636 1.636-1.636h3.819l6.545 4.91v6.545l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366z"/>
+                        <path fill="#96f0ea" d="M24 19.366V5.457c0-.904-.732-1.636-1.636-1.636h-3.819l-6.545 4.91v6.545l6.545-4.91v9.273h3.819A1.636 1.636 0 0 1 24 19.366z"/>
+                    </svg>
+                    <span class="google-app-name">Gmail</span>
+                </div>
+                <div class="google-app">
+                    <svg class="google-app-icon" viewBox="0 0 24 24">
+                        <path fill="#4ecdc4" d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                    </svg>
+                    <span class="google-app-name">Calendar</span>
+                </div>
+                <div class="google-app">
+                    <svg class="google-app-icon" viewBox="0 0 24 24">
+                        <path fill="#4ecdc4" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                    </svg>
+                    <span class="google-app-name">Sheets</span>
+                </div>
+                <div class="google-app">
+                    <svg class="google-app-icon" viewBox="0 0 24 24">
+                        <path fill="#4ecdc4" d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                    </svg>
+                    <span class="google-app-name">Docs</span>
+                </div>
+                <div class="google-app">
+                    <svg class="google-app-icon" viewBox="0 0 24 24">
+                        <path fill="#4ecdc4" d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                        <path fill="#72e8df" d="M16,10H8V12H16V10M16,14H8V16H16V14M10,6H8V8H10V6Z"/>
+                    </svg>
+                    <span class="google-app-name">Slides</span>
+                </div>
+                <div class="google-app">
+                    <svg class="google-app-icon" viewBox="0 0 24 24">
+                        <path fill="#4ecdc4" d="M7.71,3.5L1.15,15L4.58,21L11.13,9.5M9.73,15L6.3,21H19.42L22.85,15M22.28,14L15.42,2H8.58L8.57,2L15.43,14H22.28Z"/>
+                        <path fill="#72e8df" d="M8.58,2H8.57L1.15,15L4.58,21L15.43,14L8.58,2Z"/>
+                        <path fill="#96f0ea" d="M15.43,14L4.58,21H19.42L22.85,15L15.43,14Z"/>
+                    </svg>
+                    <span class="google-app-name">Drive</span>
+                </div>
+                <div class="google-app">
+                    <svg class="google-app-icon" viewBox="0 0 24 24">
+                        <path fill="#4ecdc4" d="M19,18H5V6H19M21,4H3A2,2 0 0,0 1,6V18A2,2 0 0,0 3,20H21A2,2 0 0,0 23,18V6A2,2 0 0,0 21,4Z"/>
+                        <path fill="#ffffff" d="M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9M8,16H16V14.5C16,13.1 13.3,12 12,12C10.7,12 8,13.1 8,14.5V16Z"/>
+                    </svg>
+                    <span class="google-app-name">Meet</span>
+                </div>
             </div>
         </div>
     </div>
-
-    <!-- Footer -->
-    <footer style="background: rgba(0, 0, 0, 0.98); border-top: 1px solid rgba(78, 205, 196, 0.1); padding: 2rem; text-align: center; margin-top: 3rem;">
-        <div style="max-width: 1200px; margin: 0 auto;">
-            <div style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; margin-bottom: 1rem; background: linear-gradient(135deg, #e6e6e6 0%, #ffffff 25%, #a1a1a1 50%, #ffffff 75%, #e6e6e6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-                DERIVITY<span style="color: #4ecdc4;">AI</span>
-            </div>
-            <p style="color: #888; margin-bottom: 1.5rem;">Intelligent Investment Solutions for the Future</p>
-            <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
-                <a href="index.html" style="color: #ccc; text-decoration: none; transition: color 0.3s ease;">Home</a>
-                <a href="about.html" style="color: #ccc; text-decoration: none; transition: color 0.3s ease;">About</a>
-                <a href="#contact" style="color: #ccc; text-decoration: none; transition: color 0.3s ease;">Contact</a>
-                <a href="#privacy" style="color: #ccc; text-decoration: none; transition: color 0.3s ease;">Privacy</a>
-                <a href="#terms" style="color: #ccc; text-decoration: none; transition: color 0.3s ease;">Terms</a>
-            </div>
-            <p style="color: #666; font-size: 0.9rem;">© 2025 Derivity AI. All rights reserved.</p>
-        </div>
-    </footer>
 
     <script>
         // Create data particles effect
@@ -782,42 +775,6 @@
                 const x = (mouseX - 0.5) * speed * 10;
                 const y = (mouseY - 0.5) * speed * 10;
                 element.style.transform = `translate(${x}px, ${y}px)`;
-            });
-        });
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.nav-header');
-            if (window.scrollY > 100) {
-                navbar.style.background = 'rgba(0, 0, 0, 0.98)';
-                navbar.style.backdropFilter = 'blur(20px)';
-            } else {
-                navbar.style.background = 'rgba(0, 0, 0, 0.95)';
-                navbar.style.backdropFilter = 'blur(10px)';
-            }
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Add hover effects for footer links
-        document.querySelectorAll('footer a').forEach(link => {
-            link.addEventListener('mouseenter', function() {
-                this.style.color = '#4ecdc4';
-            });
-            link.addEventListener('mouseleave', function() {
-                this.style.color = '#ccc';
             });
         });
     </script>
