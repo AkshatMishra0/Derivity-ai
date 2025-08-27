@@ -181,7 +181,7 @@
                     localStorage.setItem('userEmail', email);
                     localStorage.setItem('isLoggedIn', 'true');
                     alert('Welcome to Derivity AI! You have been logged in with demo access.');
-                    window.location.href = 'index.html';
+                    window.location.href = '/';
                     return;
                 }
                 
@@ -205,7 +205,7 @@
                     localStorage.setItem('isLoggedIn', 'true');
                     
                     // Redirect to main page
-                    window.location.href = 'index.html';
+                    window.location.href = '/';
                 } else {
                     alert(data.message || 'Invalid email or password. Please try again.');
                 }
@@ -216,7 +216,7 @@
                     localStorage.setItem('userEmail', email);
                     localStorage.setItem('isLoggedIn', 'true');
                     alert('Welcome to Derivity AI! You have been logged in with demo access.');
-                    window.location.href = 'index.html';
+                    window.location.href = '/';
                 } else {
                     alert('There was an error logging in. Please try again.');
                 }
