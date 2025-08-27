@@ -136,31 +136,31 @@
                 <div class="apple-glass rounded-3xl p-8">
                     <h2 class="text-3xl font-bold text-white mb-8">Send us a Message</h2>
                     
-                    <form class="space-y-6">
+                    <form id="contactForm" class="space-y-6">
                         <div class="grid md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-dark-200 text-sm font-medium mb-2">First Name</label>
-                                <input type="text" class="w-full px-4 py-3 rounded-xl apple-glass border border-white/20 text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent transition-all duration-300" placeholder="John">
+                                <input type="text" name="firstName" required class="w-full px-4 py-3 rounded-xl apple-glass border border-white/20 text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent transition-all duration-300" placeholder="John">
                             </div>
                             <div>
                                 <label class="block text-dark-200 text-sm font-medium mb-2">Last Name</label>
-                                <input type="text" class="w-full px-4 py-3 rounded-xl apple-glass border border-white/20 text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent transition-all duration-300" placeholder="Doe">
+                                <input type="text" name="lastName" required class="w-full px-4 py-3 rounded-xl apple-glass border border-white/20 text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent transition-all duration-300" placeholder="Doe">
                             </div>
                         </div>
                         
                         <div>
                             <label class="block text-dark-200 text-sm font-medium mb-2">Email Address</label>
-                            <input type="email" class="w-full px-4 py-3 rounded-xl apple-glass border border-white/20 text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent transition-all duration-300" placeholder="john@example.com">
+                            <input type="email" name="email" required class="w-full px-4 py-3 rounded-xl apple-glass border border-white/20 text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent transition-all duration-300" placeholder="john@example.com">
                         </div>
                         
                         <div>
                             <label class="block text-dark-200 text-sm font-medium mb-2">Company (Optional)</label>
-                            <input type="text" class="w-full px-4 py-3 rounded-xl apple-glass border border-white/20 text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent transition-all duration-300" placeholder="Your Company">
+                            <input type="text" name="company" class="w-full px-4 py-3 rounded-xl apple-glass border border-white/20 text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent transition-all duration-300" placeholder="Your Company">
                         </div>
                         
                         <div>
                             <label class="block text-dark-200 text-sm font-medium mb-2">Subject</label>
-                            <select class="w-full px-4 py-3 rounded-xl apple-glass border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent transition-all duration-300">
+                            <select name="subject" required class="w-full px-4 py-3 rounded-xl apple-glass border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent transition-all duration-300">
                                 <option value="">Select a subject</option>
                                 <option value="general">General Inquiry</option>
                                 <option value="support">Technical Support</option>
@@ -173,12 +173,14 @@
                         
                         <div>
                             <label class="block text-dark-200 text-sm font-medium mb-2">Message</label>
-                            <textarea rows="6" class="w-full px-4 py-3 rounded-xl apple-glass border border-white/20 text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent transition-all duration-300 resize-none" placeholder="Tell us how we can help you..."></textarea>
+                            <textarea name="message" required rows="6" class="w-full px-4 py-3 rounded-xl apple-glass border border-white/20 text-white placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent transition-all duration-300 resize-none" placeholder="Tell us how we can help you..."></textarea>
                         </div>
                         
-                        <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl">
+                        <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl">
                             Send Message
                         </button>
+                        
+                        <div id="formMessage" class="hidden text-center text-sm"></div>
                     </form>
                 </div>
 
@@ -344,5 +346,64 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const formMessage = document.getElementById('formMessage');
+            const form = e.target;
+            
+            // Get form data
+            const formData = new FormData(form);
+            const firstName = formData.get('firstName');
+            const lastName = formData.get('lastName');
+            const email = formData.get('email');
+            const company = formData.get('company');
+            const subject = formData.get('subject');
+            const message = formData.get('message');
+            
+            // Show loading state
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            formMessage.className = 'hidden';
+            
+            try {
+                const response = await fetch('/api/contact/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: `${firstName} ${lastName}`,
+                        email: email,
+                        company: company,
+                        subject: subject,
+                        message: message
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    formMessage.textContent = data.message;
+                    formMessage.className = 'text-green-400 text-center text-sm';
+                    form.reset();
+                } else {
+                    formMessage.textContent = data.message;
+                    formMessage.className = 'text-red-400 text-center text-sm';
+                }
+            } catch (error) {
+                formMessage.textContent = 'There was an error sending your message. Please try again.';
+                formMessage.className = 'text-red-400 text-center text-sm';
+            }
+            
+            // Reset button state
+            submitBtn.textContent = 'Send Message';
+            submitBtn.disabled = false;
+        });
+    </script>
 </body>
 </html>
