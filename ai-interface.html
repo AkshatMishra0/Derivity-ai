@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Interface - Derivity AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        .font-display { font-family: 'Inter', sans-serif; }
+        .font-sans { font-family: 'Inter', sans-serif; }
+        
+        :root {
+            --apple-blue: #007aff;
+            --apple-indigo: #5856d6;
+            --dark-100: #f8f9fa;
+            --dark-200: #e9ecef;
+            --dark-300: #adb5bd;
+            --dark-800: #343a40;
+            --dark-900: #212529;
+        }
+        
+        .apple-glass {
+            background: rgba(28, 28, 30, 0.8);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #8d95a1 0%, #6c757d 25%, #495057 50%, #007aff 75%, #5856d6 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        .pulse-glow {
+            animation: pulseGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 20px rgba(0, 122, 255, 0.3); }
+            100% { box-shadow: 0 0 40px rgba(0, 122, 255, 0.6); }
+        }
+        
+        body {
+            background: linear-gradient(135deg, #000000 0%, #0a0a0a 25%, #111111 50%, #0a0a0a 75%, #000000 100%);
+            background-attachment: fixed;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(1px 1px at 20px 30px, #fff, transparent),
+                radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 130px 80px, #fff, transparent);
+            background-repeat: repeat;
+            background-size: 400px 300px;
+            pointer-events: none;
+            z-index: -1;
+            animation: starTwinkle 4s ease-in-out infinite alternate, starMove 60s linear infinite;
+        }
+        
+        @keyframes starTwinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes starMove {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-400px) translateY(-300px); }
+        }
+    </style>
+</head>
+<body class="text-white font-sans min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed w-full apple-glass z-50 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-display font-semibold gradient-text">DERIVITY<span class="text-apple-blue">AI</span></a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="features.html" class="text-dark-200 hover:text-apple-blue transition-all duration-300">Features</a>
+                    <a href="about.html" class="text-dark-200 hover:text-apple-blue transition-all duration-300">About</a>
+                    <a href="pricing.html" class="text-dark-200 hover:text-apple-blue transition-all duration-300">Pricing</a>
+                    <a href="contact.html" class="text-dark-200 hover:text-apple-blue transition-all duration-300">Contact</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <a href="login.html" class="bg-apple-blue hover:bg-apple-indigo text-white px-6 py-2 rounded-full font-medium transition-all duration-300 transform hover:scale-105">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Coming Soon Section -->
+    <section class="pt-32 pb-20 px-4 min-h-screen flex items-center">
+        <div class="max-w-6xl mx-auto text-center">
+            <!-- Main Coming Soon Message -->
+            <div class="mb-16">
+                <div class="inline-flex items-center px-6 py-3 bg-apple-blue/20 border border-apple-blue/30 rounded-full mb-8">
+                    <svg class="w-5 h-5 mr-2 text-apple-blue animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <span class="text-apple-blue text-sm font-medium">AI Interface In Development</span>
+                </div>
+                
+                <h1 class="text-6xl md:text-8xl font-bold mb-8 gradient-text">Coming Soon</h1>
+                <p class="text-2xl md:text-3xl text-dark-200 max-w-4xl mx-auto leading-relaxed mb-12">
+                    The future of AI interaction is being crafted. 
+                    <br class="hidden md:block">
+                    Experience revolutionary intelligence, coming very soon.
+                </p>
+            </div>
+            
+            <!-- Preview Interface -->
+            <div class="apple-glass rounded-3xl p-8 mb-16 max-w-4xl mx-auto pulse-glow">
+                <div class="text-left">
+                    <div class="flex items-center mb-6">
+                        <div class="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
+                        <div class="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
+                        <div class="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+                        <span class="text-dark-300 text-sm ml-4">Derivity AI Interface</span>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 bg-apple-blue rounded-full flex-shrink-0 flex items-center justify-center">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                            </div>
+                            <div class="bg-white/10 rounded-xl p-4 flex-1">
+                                <p class="text-dark-100">Hello! I'm Derivity AI. I'm currently being developed to provide you with:</p>
+                                <ul class="mt-3 space-y-2 text-dark-200">
+                                    <li>• Advanced conversational AI capabilities</li>
+                                    <li>• Seamless integration with your favorite apps</li>
+                                    <li>• Real-time collaboration and productivity tools</li>
+                                    <li>• Intelligent automation and workflow optimization</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex-shrink-0"></div>
+                            <div class="bg-apple-blue/20 rounded-xl p-4 flex-1">
+                                <p class="text-white">I can't wait to help revolutionize your workflow! ✨</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 flex items-center space-x-4 p-4 bg-white/5 rounded-xl">
+                        <input type="text" placeholder="Ask me anything... (Coming Soon)" disabled class="flex-1 px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-dark-300 placeholder-dark-400 cursor-not-allowed" />
+                        <button disabled class="bg-dark-600 px-6 py-3 rounded-xl font-semibold text-dark-400 cursor-not-allowed">
+                            Send
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Features Preview -->
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="apple-glass rounded-2xl p-6 text-center">
+                    <div class="w-16 h-16 bg-apple-blue/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-apple-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Smart Conversations</h3>
+                    <p class="text-dark-200">Natural language processing that understands context and intent.</p>
+                </div>
+                
+                <div class="apple-glass rounded-2xl p-6 text-center">
+                    <div class="w-16 h-16 bg-purple-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">App Integration</h3>
+                    <p class="text-dark-200">Seamlessly connect with Microsoft Office, Google Workspace, and more.</p>
+                </div>
+                
+                <div class="apple-glass rounded-2xl p-6 text-center">
+                    <div class="w-16 h-16 bg-green-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Lightning Fast</h3>
+                    <p class="text-dark-200">Real-time responses and instant workflow automation.</p>
+                </div>
+            </div>
+            
+            <!-- Launch Timeline -->
+            <div class="apple-glass rounded-3xl p-8 mb-16">
+                <h2 class="text-3xl font-bold text-white mb-8">Development Timeline</h2>
+                <div class="grid md:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">Phase 1</h3>
+                        <p class="text-dark-200 text-sm">Core AI Development</p>
+                        <p class="text-green-400 text-xs mt-1">Completed</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-apple-blue rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">Phase 2</h3>
+                        <p class="text-dark-200 text-sm">Interface Design</p>
+                        <p class="text-apple-blue text-xs mt-1">In Progress</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-dark-600 border border-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-6 h-6 text-dark-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">Phase 3</h3>
+                        <p class="text-dark-200 text-sm">App Integrations</p>
+                        <p class="text-dark-400 text-xs mt-1">Coming Soon</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-dark-600 border border-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-6 h-6 text-dark-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">Phase 4</h3>
+                        <p class="text-dark-200 text-sm">Beta Launch</p>
+                        <p class="text-dark-400 text-xs mt-1">Q1 2025</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CTA Section -->
+            <div class="apple-glass rounded-3xl p-8">
+                <h2 class="text-3xl font-bold text-white mb-4">Be the First to Experience the Future</h2>
+                <p class="text-xl text-dark-200 mb-8">Join our exclusive beta program and get early access to Derivity AI.</p>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                    <a href="login.html" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-10 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl">
+                        Join Beta Program
+                    </a>
+                    <a href="contact.html" class="apple-glass border border-white/20 text-dark-100 hover:bg-white/10 px-10 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105">
+                        Get Notified
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-900 border-t border-dark-700/30 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="text-2xl font-display font-semibold gradient-text mb-4">DERIVITY<span class="text-apple-blue">AI</span></div>
+                <p class="text-dark-300 mb-6">The future of AI is coming soon</p>
+                <div class="flex justify-center space-x-6">
+                    <a href="index.html" class="text-dark-400 hover:text-apple-blue transition-colors">Home</a>
+                    <a href="features.html" class="text-dark-400 hover:text-apple-blue transition-colors">Features</a>
+                    <a href="about.html" class="text-dark-400 hover:text-apple-blue transition-colors">About</a>
+                    <a href="pricing.html" class="text-dark-400 hover:text-apple-blue transition-colors">Pricing</a>
+                    <a href="contact.html" class="text-dark-400 hover:text-apple-blue transition-colors">Contact</a>
+                </div>
+                <div class="mt-8 pt-8 border-t border-dark-700/30">
+                    <p class="text-dark-500">&copy; 2025 Derivity AI. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

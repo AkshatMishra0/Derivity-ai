@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - Derivity AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        .font-display { font-family: 'Inter', sans-serif; }
+        .font-sans { font-family: 'Inter', sans-serif; }
+        
+        :root {
+            --apple-blue: #007aff;
+            --apple-indigo: #5856d6;
+            --dark-100: #f8f9fa;
+            --dark-200: #e9ecef;
+            --dark-300: #adb5bd;
+            --dark-800: #343a40;
+            --dark-900: #212529;
+        }
+        
+        .apple-glass {
+            background: rgba(28, 28, 30, 0.8);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #8d95a1 0%, #6c757d 25%, #495057 50%, #007aff 75%, #5856d6 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        body {
+            background: linear-gradient(135deg, #000000 0%, #0a0a0a 25%, #111111 50%, #0a0a0a 75%, #000000 100%);
+            background-attachment: fixed;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(1px 1px at 20px 30px, #fff, transparent),
+                radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 130px 80px, #fff, transparent);
+            background-repeat: repeat;
+            background-size: 400px 300px;
+            pointer-events: none;
+            z-index: -1;
+            animation: starTwinkle 4s ease-in-out infinite alternate, starMove 60s linear infinite;
+        }
+        
+        @keyframes starTwinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes starMove {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-400px) translateY(-300px); }
+        }
+        
+        .pricing-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 122, 255, 0.25);
+        }
+        
+        .popular-badge {
+            background: linear-gradient(135deg, #007aff, #5856d6);
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+<body class="text-white font-sans">
+    <!-- Navigation -->
+    <nav class="fixed w-full apple-glass z-50 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-display font-semibold gradient-text">DERIVITY<span class="text-apple-blue">AI</span></a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="features.html" class="text-dark-200 hover:text-apple-blue transition-all duration-300">Features</a>
+                    <a href="about.html" class="text-dark-200 hover:text-apple-blue transition-all duration-300">About</a>
+                    <a href="pricing.html" class="text-apple-blue border-b-2 border-apple-blue pb-1">Pricing</a>
+                    <a href="contact.html" class="text-dark-200 hover:text-apple-blue transition-all duration-300">Contact</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <a href="login.html" class="bg-apple-blue hover:bg-apple-indigo text-white px-6 py-2 rounded-full font-medium transition-all duration-300 transform hover:scale-105">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="pt-32 pb-16 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <div class="inline-flex items-center px-6 py-3 bg-apple-blue/20 border border-apple-blue/30 rounded-full mb-8">
+                <svg class="w-5 h-5 mr-2 text-apple-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="text-apple-blue text-sm font-medium">Simple, Transparent Pricing</span>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-bold mb-8 gradient-text">Choose Your Plan</h1>
+            <p class="text-xl md:text-2xl text-dark-200 max-w-4xl mx-auto leading-relaxed">
+                Start free and scale as you grow. No hidden fees, no surprises.
+            </p>
+        </div>
+    </section>
+
+    <!-- Pricing Cards -->
+    <section class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Free Plan -->
+                <div class="apple-glass rounded-3xl p-8 pricing-card">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold text-white mb-2">Derivity v1</h3>
+                        <p class="text-dark-200 mb-6">Perfect for individuals getting started</p>
+                        <div class="mb-6">
+                            <span class="text-5xl font-bold text-white">Free</span>
+                            <span class="text-dark-300 ml-2">Forever</span>
+                        </div>
+                        <a href="login.html" class="w-full bg-white/10 hover:bg-white/20 text-white border border-white/20 px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 inline-block">
+                            Get Started
+                        </a>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-dark-200">Basic AI conversations</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-dark-200">100 AI interactions per month</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-dark-200">Basic integrations</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-dark-200">Community support</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-dark-200">Web interface access</span>
+                        </div>
+                        <div class="flex items-center opacity-50">
+                            <svg class="w-5 h-5 text-dark-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                            <span class="text-dark-400">Advanced AI features</span>
+                        </div>
+                        <div class="flex items-center opacity-50">
+                            <svg class="w-5 h-5 text-dark-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                            <span class="text-dark-400">Premium integrations</span>
+                        </div>
+                        <div class="flex items-center opacity-50">
+                            <svg class="w-5 h-5 text-dark-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                            <span class="text-dark-400">Priority support</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pro Plan (Coming Soon) -->
+                <div class="apple-glass rounded-3xl p-8 pricing-card relative">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <span class="popular-badge text-white px-6 py-2 rounded-full text-sm font-semibold">
+                            Coming Soon
+                        </span>
+                    </div>
+                    
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold text-white mb-2">Derivity Pro</h3>
+                        <p class="text-dark-200 mb-6">For professionals and small teams</p>
+                        <div class="mb-6">
+                            <span class="text-5xl font-bold text-white">$29</span>
+                            <span class="text-dark-300 ml-2">/month</span>
+                        </div>
+                        <button disabled class="w-full bg-dark-600 text-dark-400 px-8 py-3 rounded-full font-semibold cursor-not-allowed inline-block">
+                            Coming Soon
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-dark-200">Everything in Free</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-dark-200">Unlimited AI interactions</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-dark-200">Advanced AI capabilities</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-dark-200">Premium app integrations</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-dark-200">Priority email support</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-dark-200">Collaboration tools</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-dark-200">Custom workflows</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-dark-200">Analytics dashboard</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enterprise Plan (Coming Soon) -->
+                <div class="apple-glass rounded-3xl p-8 pricing-card">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold text-white mb-2">Enterprise</h3>
+                        <p class="text-dark-200 mb-6">For large teams and organizations</p>
+                        <div class="mb-6">
+                            <span class="text-3xl font-bold text-white">Custom</span>
+                            <span class="text-dark-300 ml-2">Pricing</span>
+                        </div>
+                        <a href="contact.html" class="w-full bg-white/10 hover:bg-white/20 text-white border border-white/20 px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 inline-block">
+                            Contact Sales
+                        </a>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-dark-200">Everything in Pro</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-dark-200">Unlimited team members</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-dark-200">Custom integrations</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-dark-200">SSO & SAML support</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-dark-200">Dedicated account manager</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-dark-200">24/7 phone support</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-dark-200">On-premise deployment</span>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-dark-200">SLA guarantees</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold text-center gradient-text mb-16">Frequently Asked Questions</h2>
+            
+            <div class="space-y-8">
+                <div class="apple-glass rounded-2xl p-8">
+                    <h3 class="text-xl font-bold text-white mb-4">What's included in the free plan?</h3>
+                    <p class="text-dark-200">The Derivity v1 free plan includes basic AI conversations, 100 monthly interactions, basic integrations, community support, and web interface access. It's perfect for individuals getting started with AI productivity tools.</p>
+                </div>
+                
+                <div class="apple-glass rounded-2xl p-8">
+                    <h3 class="text-xl font-bold text-white mb-4">When will the Pro and Enterprise plans be available?</h3>
+                    <p class="text-dark-200">Pro and Enterprise plans are currently in development and will be available in early 2025. You can join our beta program to get early access and provide feedback on upcoming features.</p>
+                </div>
+                
+                <div class="apple-glass rounded-2xl p-8">
+                    <h3 class="text-xl font-bold text-white mb-4">Can I upgrade or downgrade my plan anytime?</h3>
+                    <p class="text-dark-200">Yes, you can change your plan at any time when our paid plans become available. Changes will be prorated and take effect immediately, giving you flexibility as your needs evolve.</p>
+                </div>
+                
+                <div class="apple-glass rounded-2xl p-8">
+                    <h3 class="text-xl font-bold text-white mb-4">Is my data secure?</h3>
+                    <p class="text-dark-200">Absolutely. We use enterprise-grade security with end-to-end encryption, GDPR compliance, and zero data retention policies. Your conversations and data are completely private and never used for training.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="apple-glass rounded-3xl p-12">
+                <h2 class="text-4xl font-bold text-white mb-6">Start Your AI Journey Today</h2>
+                <p class="text-xl text-dark-200 mb-8">
+                    Join the future of productivity with Derivity AI. Start free and experience the difference.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                    <a href="login.html" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-10 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl">
+                        Get Started Free
+                    </a>
+                    <a href="contact.html" class="apple-glass border border-white/20 text-dark-100 hover:bg-white/10 px-10 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105">
+                        Contact Sales
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-900 border-t border-dark-700/30 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="text-2xl font-display font-semibold gradient-text mb-4">DERIVITY<span class="text-apple-blue">AI</span></div>
+                <p class="text-dark-300 mb-6">Simple pricing for powerful AI</p>
+                <div class="flex justify-center space-x-6">
+                    <a href="index.html" class="text-dark-400 hover:text-apple-blue transition-colors">Home</a>
+                    <a href="features.html" class="text-dark-400 hover:text-apple-blue transition-colors">Features</a>
+                    <a href="about.html" class="text-dark-400 hover:text-apple-blue transition-colors">About</a>
+                    <a href="pricing.html" class="text-dark-400 hover:text-apple-blue transition-colors">Pricing</a>
+                    <a href="contact.html" class="text-dark-400 hover:text-apple-blue transition-colors">Contact</a>
+                </div>
+                <div class="mt-8 pt-8 border-t border-dark-700/30">
+                    <p class="text-dark-500">&copy; 2025 Derivity AI. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
