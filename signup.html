@@ -433,9 +433,14 @@
                     formMessage.className = 'text-green-400 text-center text-sm';
                     form.reset();
                     
-                    // Store login state and redirect to main page
+                    // Store login state and user data
                     localStorage.setItem('userEmail', email.trim().toLowerCase());
                     localStorage.setItem('isLoggedIn', 'true');
+                    
+                    // Store additional user info if available
+                    if (data.user) {
+                        localStorage.setItem('userData', JSON.stringify(data.user));
+                    }
                     
                     setTimeout(() => {
                         window.location.href = getBasePath();

@@ -1245,34 +1245,64 @@
             });
         });
         
-        // Login state management
-        function checkLoginState() {
+        // Login state management - Enhanced with backend sync
+        async function checkLoginState() {
             const isLoggedIn = localStorage.getItem('isLoggedIn');
             const userEmail = localStorage.getItem('userEmail');
             
+            // First check localStorage for quick UI update
             if (isLoggedIn === 'true' && userEmail) {
-                // User is logged in - show user menu, hide auth buttons
-                document.getElementById('auth-buttons').classList.add('hidden');
-                document.getElementById('user-menu').classList.remove('hidden');
-                
-                // Set user info
-                document.getElementById('user-email').textContent = userEmail;
-                document.getElementById('user-initial').textContent = userEmail.charAt(0).toUpperCase();
-                
-                // Show welcome message or update content for logged-in users
-                updateContentForLoggedInUser(userEmail);
-            } else {
-                // User is not logged in - show auth buttons, hide user menu
-                document.getElementById('auth-buttons').classList.remove('hidden');
-                document.getElementById('user-menu').classList.add('hidden');
+                updateUIForLoggedInUser(userEmail);
+            }
+            
+            // Then verify with backend if not on GitHub Pages
+            if (!window.location.hostname.includes('github.io')) {
+                try {
+                    const response = await fetch('/api/auth-status/');
+                    const data = await response.json();
+                    
+                    if (data.authenticated && data.user) {
+                        // Backend confirms user is logged in
+                        localStorage.setItem('userEmail', data.user.email);
+                        localStorage.setItem('isLoggedIn', 'true');
+                        updateUIForLoggedInUser(data.user.email, data.user);
+                    } else {
+                        // Backend says user is not logged in, clear localStorage
+                        localStorage.removeItem('isLoggedIn');
+                        localStorage.removeItem('userEmail');
+                        updateUIForLoggedOutUser();
+                    }
+                } catch (error) {
+                    console.log('Could not verify login status with backend:', error);
+                    // Keep localStorage state if backend is unavailable
+                }
             }
         }
         
-        function updateContentForLoggedInUser(userEmail) {
+        function updateUIForLoggedInUser(userEmail, userData = null) {
+            // Show user menu, hide auth buttons
+            document.getElementById('auth-buttons').classList.add('hidden');
+            document.getElementById('user-menu').classList.remove('hidden');
+            
+            // Set user info
+            document.getElementById('user-email').textContent = userEmail;
+            document.getElementById('user-initial').textContent = userEmail.charAt(0).toUpperCase();
+            
+            // Update content for logged-in users
+            updateContentForLoggedInUser(userEmail, userData);
+        }
+        
+        function updateUIForLoggedOutUser() {
+            // Show auth buttons, hide user menu
+            document.getElementById('auth-buttons').classList.remove('hidden');
+            document.getElementById('user-menu').classList.add('hidden');
+        }
+        
+        function updateContentForLoggedInUser(userEmail, userData = null) {
             // Update hero section description for logged-in users
             const heroDescription = document.querySelector('p.text-xl.md\\:text-2xl');
             if (heroDescription) {
-                const userName = userEmail.split('@')[0];
+                const userName = userData?.first_name || userEmail.split('@')[0];
                 heroDescription.innerHTML = `Welcome back, <span class="text-apple-blue font-semibold">${userName}</span>! 
                 <br class="hidden md:block">
                 Where your imagination meets limitless intelligence. Ready to create something extraordinary?`;
@@ -1292,7 +1322,21 @@
             }
         }
         
-        function handleLogout() {
+        async function handleLogout() {
+            // Try to logout via backend first
+            if (!window.location.hostname.includes('github.io')) {
+                try {
+                    await fetch('/api/logout/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    });
+                } catch (error) {
+                    console.log('Backend logout failed, continuing with frontend logout:', error);
+                }
+            }
+            
             // Clear login state
             localStorage.removeItem('isLoggedIn');
             localStorage.removeItem('userEmail');

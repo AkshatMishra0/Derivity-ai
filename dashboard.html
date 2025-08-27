@@ -145,23 +145,71 @@
     </div>
 
     <script>
-        // Check if user is logged in
-        document.addEventListener('DOMContentLoaded', function() {
+        // Enhanced dashboard with backend integration
+        document.addEventListener('DOMContentLoaded', async function() {
+            await loadUserData();
+            setupEventListeners();
+        });
+
+        async function loadUserData() {
             const userEmail = localStorage.getItem('userEmail');
             if (!userEmail) {
                 window.location.href = 'login.html';
                 return;
             }
-            
-            document.getElementById('userEmail').textContent = userEmail;
-        });
 
-        // Logout functionality
-        document.getElementById('logoutBtn').addEventListener('click', function() {
+            // Set basic user info
+            document.getElementById('userEmail').textContent = userEmail;
+
+            // Try to verify with backend if not on GitHub Pages
+            if (!window.location.hostname.includes('github.io')) {
+                try {
+                    const response = await fetch('/api/auth-status/');
+                    const data = await response.json();
+                    
+                    if (data.authenticated && data.user) {
+                        updateUIWithUserData(data.user);
+                        localStorage.setItem('userData', JSON.stringify(data.user));
+                    } else {
+                        // Backend says user is not authenticated
+                        clearUserData();
+                        window.location.href = 'login.html';
+                    }
+                } catch (error) {
+                    console.log('Could not verify auth status:', error);
+                    // Continue with localStorage data
+                }
+            }
+        }
+
+        function updateUIWithUserData(userData) {
+            document.getElementById('userEmail').textContent = userData.email;
+        }
+
+        function clearUserData() {
             localStorage.removeItem('userEmail');
             localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userData');
+        }
+
+        function setupEventListeners() {
+            // Logout functionality
+            document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+        }
+
+        async function handleLogout() {
+            // Try backend logout if not on GitHub Pages
+            if (!window.location.hostname.includes('github.io')) {
+                try {
+                    await fetch('/api/logout/', { method: 'POST' });
+                } catch (error) {
+                    console.log('Backend logout failed:', error);
+                }
+            }
+
+            clearUserData();
             window.location.href = 'index.html';
-        });
+        }
 
         // Dashboard functions
         function openAIChat() {

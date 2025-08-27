@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    # Page views
     path('', views.index, name='index'),
     path('about/', views.about, name='about'),
     path('features/', views.features, name='features'),
@@ -18,4 +19,8 @@ urlpatterns = [
     path('api/logout/', views.user_logout, name='user_logout'),
     path('api/signup/', views.user_signup, name='user_signup'),
     path('api/ai-chat/', views.ai_chat, name='ai_chat'),
+    path('api/csrf-token/', views.get_csrf_token, name='get_csrf_token'),
+    path('api/auth-status/', views.check_auth_status, name='check_auth_status'),
+    path('api/profile/', views.get_user_profile, name='get_user_profile'),
+    path('api/profile/update/', views.update_user_profile, name='update_user_profile'),
 ]

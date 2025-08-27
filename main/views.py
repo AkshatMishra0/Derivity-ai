@@ -3,7 +3,11 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
+from django.middleware.csrf import get_token
 import json
+import re
 
 def index(request):
     """Homepage view"""
@@ -152,6 +156,12 @@ def user_signup(request):
                     'message': 'Email and password are required'
                 })
             
+            if not validate_email(email):
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Please enter a valid email address'
+                })
+            
             if len(password) < 6:
                 return JsonResponse({
                     'status': 'error',
@@ -182,14 +192,20 @@ def user_signup(request):
                 last_name=' '.join(full_name.split(' ')[1:]) if full_name and len(full_name.split(' ')) > 1 else ''
             )
             
-            # You can add newsletter subscription logic here
-            if newsletter:
-                # Add to newsletter (implement Newsletter model logic if needed)
-                pass
+            # Auto-login the user after signup
+            login(request, user)
             
             return JsonResponse({
                 'status': 'success',
-                'message': 'Account created successfully! Welcome to Derivity AI.'
+                'message': 'Account created successfully! Welcome to Derivity AI.',
+                'user': {
+                    'id': user.id,
+                    'username': user.username,
+                    'email': user.email,
+                    'first_name': user.first_name,
+                    'last_name': user.last_name,
+                    'full_name': f"{user.first_name} {user.last_name}".strip()
+                }
             })
         except json.JSONDecodeError:
             return JsonResponse({
@@ -217,3 +233,110 @@ def user_logout(request):
         })
     
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+
+@csrf_exempt
+def get_csrf_token(request):
+    """Get CSRF token for frontend"""
+    return JsonResponse({
+        'csrf_token': get_token(request)
+    })
+
+@csrf_exempt
+def check_auth_status(request):
+    """Check if user is authenticated and return user info"""
+    if request.user.is_authenticated:
+        return JsonResponse({
+            'authenticated': True,
+            'user': {
+                'id': request.user.id,
+                'username': request.user.username,
+                'email': request.user.email,
+                'first_name': request.user.first_name,
+                'last_name': request.user.last_name,
+                'full_name': f"{request.user.first_name} {request.user.last_name}".strip()
+            }
+        })
+    else:
+        return JsonResponse({
+            'authenticated': False,
+            'user': None
+        })
+
+@csrf_exempt
+@login_required
+def get_user_profile(request):
+    """Get detailed user profile"""
+    if request.method == 'GET':
+        user = request.user
+        return JsonResponse({
+            'status': 'success',
+            'user': {
+                'id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'full_name': f"{user.first_name} {user.last_name}".strip(),
+                'date_joined': user.date_joined.isoformat(),
+                'last_login': user.last_login.isoformat() if user.last_login else None,
+                'is_active': user.is_active
+            }
+        })
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+
+@csrf_exempt
+@login_required
+def update_user_profile(request):
+    """Update user profile"""
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            user = request.user
+            
+            # Update allowed fields
+            if 'first_name' in data:
+                user.first_name = data['first_name'].strip()
+            if 'last_name' in data:
+                user.last_name = data['last_name'].strip()
+            if 'email' in data:
+                new_email = data['email'].strip().lower()
+                # Check if email is already taken by another user
+                if User.objects.filter(email=new_email).exclude(id=user.id).exists():
+                    return JsonResponse({
+                        'status': 'error',
+                        'message': 'This email is already in use by another account'
+                    })
+                user.email = new_email
+            
+            user.save()
+            
+            return JsonResponse({
+                'status': 'success',
+                'message': 'Profile updated successfully',
+                'user': {
+                    'id': user.id,
+                    'username': user.username,
+                    'email': user.email,
+                    'first_name': user.first_name,
+                    'last_name': user.last_name,
+                    'full_name': f"{user.first_name} {user.last_name}".strip()
+                }
+            })
+        except json.JSONDecodeError:
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Invalid data format'
+            })
+        except Exception as e:
+            print(f"Profile update error: {str(e)}")
+            return JsonResponse({
+                'status': 'error',
+                'message': 'There was an error updating your profile'
+            })
+    
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+
+def validate_email(email):
+    """Validate email format"""
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    return re.match(pattern, email) is not None

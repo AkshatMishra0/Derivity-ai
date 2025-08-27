@@ -211,12 +211,21 @@
                 const data = await response.json();
                 
                 if (data.status === 'success') {
-                    // Store login state
+                    // Store login state with user data
                     localStorage.setItem('userEmail', email);
                     localStorage.setItem('isLoggedIn', 'true');
                     
+                    // Store additional user info if available
+                    if (data.user) {
+                        localStorage.setItem('userData', JSON.stringify(data.user));
+                    }
+                    
+                    submitBtn.textContent = 'Redirecting...';
+                    
                     // Redirect to main page using correct base path
-                    window.location.href = getBasePath();
+                    setTimeout(() => {
+                        window.location.href = getBasePath();
+                    }, 1000);
                 } else {
                     alert(data.message || 'Invalid email or password. Please try again.');
                 }
