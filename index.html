@@ -216,10 +216,33 @@
                 </div>
                 
                 <div class="flex items-center space-x-4">
-                    <a href="login.html" class="text-dark-200 hover:text-apple-blue transition-all duration-300">Login</a>
-                    <a href="signup.html" class="bg-apple-blue hover:bg-apple-indigo text-white px-6 py-2 rounded-full font-medium transition-all duration-300 transform hover:scale-105">
-                        Get Started
-                    </a>
+                    <!-- Default login/signup buttons -->
+                    <div id="auth-buttons" class="flex items-center space-x-4">
+                        <a href="login.html" class="text-dark-200 hover:text-apple-blue transition-all duration-300">Login</a>
+                        <a href="signup.html" class="bg-apple-blue hover:bg-apple-indigo text-white px-6 py-2 rounded-full font-medium transition-all duration-300 transform hover:scale-105">
+                            Get Started
+                        </a>
+                    </div>
+                    
+                    <!-- User menu (hidden by default) -->
+                    <div id="user-menu" class="hidden flex items-center space-x-4">
+                        <span id="user-email" class="text-dark-200 text-sm"></span>
+                        <div class="relative group">
+                            <button class="flex items-center space-x-2 text-dark-200 hover:text-apple-blue transition-all duration-300">
+                                <div class="w-8 h-8 bg-apple-blue rounded-full flex items-center justify-center">
+                                    <span id="user-initial" class="text-white font-semibold text-sm"></span>
+                                </div>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div class="absolute right-0 top-10 w-48 apple-glass border border-white/10 rounded-xl p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                <a href="dashboard.html" class="block px-4 py-2 text-dark-200 hover:text-apple-blue hover:bg-white/5 rounded-lg transition-all duration-200">Dashboard</a>
+                                <button id="logout-btn" class="w-full text-left px-4 py-2 text-dark-200 hover:text-red-400 hover:bg-white/5 rounded-lg transition-all duration-200">Logout</button>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <button class="md:hidden">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -1177,7 +1200,7 @@
                             break;
                         case 'Sign In':
                             e.preventDefault();
-                            showModal('Success!', 'Login functionality will be available soon. Thank you for your interest in Derivity AI!');
+                            window.location.href = 'login.html';
                             break;
                         case 'Start Free Beta':
                             showLoginPage();
@@ -1220,6 +1243,73 @@
                     }
                 });
             });
+        });
+        
+        // Login state management
+        function checkLoginState() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            const userEmail = localStorage.getItem('userEmail');
+            
+            if (isLoggedIn === 'true' && userEmail) {
+                // User is logged in - show user menu, hide auth buttons
+                document.getElementById('auth-buttons').classList.add('hidden');
+                document.getElementById('user-menu').classList.remove('hidden');
+                
+                // Set user info
+                document.getElementById('user-email').textContent = userEmail;
+                document.getElementById('user-initial').textContent = userEmail.charAt(0).toUpperCase();
+                
+                // Show welcome message or update content for logged-in users
+                updateContentForLoggedInUser(userEmail);
+            } else {
+                // User is not logged in - show auth buttons, hide user menu
+                document.getElementById('auth-buttons').classList.remove('hidden');
+                document.getElementById('user-menu').classList.add('hidden');
+            }
+        }
+        
+        function updateContentForLoggedInUser(userEmail) {
+            // Update hero section description for logged-in users
+            const heroDescription = document.querySelector('p.text-xl.md\\:text-2xl');
+            if (heroDescription) {
+                const userName = userEmail.split('@')[0];
+                heroDescription.innerHTML = `Welcome back, <span class="text-apple-blue font-semibold">${userName}</span>! 
+                <br class="hidden md:block">
+                Where your imagination meets limitless intelligence. Ready to create something extraordinary?`;
+            }
+            
+            // Enable all features for logged-in users
+            const featureButtons = document.querySelectorAll('[data-login-required]');
+            featureButtons.forEach(button => {
+                button.classList.remove('opacity-50', 'cursor-not-allowed');
+                button.removeAttribute('disabled');
+            });
+            
+            // Update CTA buttons for logged-in users
+            const tryNowBtn = document.querySelector('a[href="ai-interface.html"]');
+            if (tryNowBtn) {
+                tryNowBtn.textContent = 'Continue Your Journey';
+            }
+        }
+        
+        function handleLogout() {
+            // Clear login state
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userEmail');
+            
+            // Refresh the page to reset the UI
+            window.location.reload();
+        }
+        
+        // Add logout functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', handleLogout);
+            }
+            
+            // Check login state on page load
+            checkLoginState();
         });
     </script>
 </body>

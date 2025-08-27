@@ -418,16 +418,16 @@
                 const data = await response.json();
                 
                 if (data.status === 'success') {
-                    formMessage.textContent = data.message || 'Account created successfully! Redirecting to dashboard...';
+                    formMessage.textContent = data.message || 'Account created successfully! Redirecting to main page...';
                     formMessage.className = 'text-green-400 text-center text-sm';
                     form.reset();
                     
-                    // Store login state and redirect to dashboard
+                    // Store login state and redirect to main page
                     localStorage.setItem('userEmail', email.trim().toLowerCase());
                     localStorage.setItem('isLoggedIn', 'true');
                     
                     setTimeout(() => {
-                        window.location.href = 'dashboard.html';
+                        window.location.href = 'index.html';
                     }, 2000);
                 } else {
                     formMessage.textContent = data.message || 'There was an error creating your account. Please try again.';
