@@ -337,6 +337,17 @@
     </section>
 
     <script>
+        // Utility function to get the correct base path
+        function getBasePath() {
+            if (window.location.hostname.includes('github.io')) {
+                // For GitHub Pages, use relative path to current directory
+                return './';
+            } else {
+                // For local Django server, use root path
+                return '/';
+            }
+        }
+        
         // Sign-up form submission
         document.getElementById('signupForm').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -427,7 +438,7 @@
                     localStorage.setItem('isLoggedIn', 'true');
                     
                     setTimeout(() => {
-                        window.location.href = '/';
+                        window.location.href = getBasePath();
                     }, 2000);
                 } else {
                     formMessage.textContent = data.message || 'There was an error creating your account. Please try again.';
