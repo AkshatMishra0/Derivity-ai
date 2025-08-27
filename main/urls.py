@@ -8,10 +8,12 @@ urlpatterns = [
     path('pricing/', views.pricing, name='pricing'),
     path('contact/', views.contact, name='contact'),
     path('login/', views.login_view, name='login'),
+    path('signup/', views.signup_view, name='signup'),
     path('ai-interface/', views.ai_interface, name='ai_interface'),
     
     # API endpoints
     path('api/contact/', views.contact_form, name='contact_form'),
     path('api/login/', views.user_login, name='user_login'),
+    path('api/signup/', views.user_signup, name='user_signup'),
     path('api/ai-chat/', views.ai_chat, name='ai_chat'),
 ]

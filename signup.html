@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Derivity AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        titanium: {
+                            50: '#f8f9fa',
+                            100: '#e9ecef',
+                            200: '#dee2e6',
+                            300: '#ced4da',
+                            400: '#adb5bd',
+                            500: '#8d95a1',
+                            600: '#6c757d',
+                            700: '#495057',
+                            800: '#343a40',
+                            900: '#212529',
+                        },
+                        apple: {
+                            blue: '#007aff',
+                            indigo: '#5856d6',
+                            purple: '#af52de',
+                            pink: '#ff2d92',
+                            red: '#ff3b30',
+                            orange: '#ff9500',
+                            yellow: '#ffcc00',
+                            green: '#34c759',
+                            mint: '#00c7be',
+                            teal: '#30b0c7',
+                            cyan: '#32d2ff',
+                        },
+                        dark: {
+                            900: '#000000',
+                            800: '#1c1c1e',
+                            700: '#2c2c2e',
+                            600: '#3a3a3c',
+                            500: '#48484a',
+                            400: '#636366',
+                            300: '#8e8e93',
+                            200: '#aeaeb2',
+                            100: '#c7c7cc',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'Helvetica Neue', 'Arial', 'sans-serif'],
+                        display: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 8s ease-in-out infinite',
+                        'glow': 'titaniumGlow 4s ease-in-out infinite alternate',
+                        'shimmer': 'shimmer 3s linear infinite',
+                    },
+                    backgroundImage: {
+                        'titanium-gradient': 'linear-gradient(135deg, #8d95a1 0%, #6c757d 25%, #495057 50%, #343a40 75%, #212529 100%)',
+                        'apple-gradient': 'linear-gradient(135deg, #007aff 0%, #5856d6 50%, #af52de 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .font-display { font-family: 'Inter', sans-serif; }
+        .font-sans { font-family: 'Inter', sans-serif; }
+        
+        .apple-glass {
+            background: rgba(28, 28, 30, 0.8);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #8d95a1 0%, #6c757d 25%, #495057 50%, #007aff 75%, #5856d6 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        body {
+            background: linear-gradient(135deg, #000000 0%, #0a0a0a 25%, #111111 50%, #0a0a0a 75%, #000000 100%);
+            background-attachment: fixed;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(120, 219, 226, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .signup-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .signup-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 122, 255, 0.15);
+        }
+        
+        .input-group {
+            position: relative;
+        }
+        
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label {
+            transform: translateY(-28px) scale(0.8);
+            color: #007aff;
+        }
+        
+        .floating-label {
+            position: absolute;
+            top: 50%;
+            left: 16px;
+            transform: translateY(-50%);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            color: #8e8e93;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-3px); }
+        }
+        
+        .social-btn {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .social-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .social-btn:hover::before {
+            left: 100%;
+        }
+    </style>
+</head>
+<body class="text-white font-sans min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed w-full apple-glass z-50 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-display font-semibold gradient-text">DERIVITY<span class="text-apple-blue">AI</span></a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="features.html" class="text-dark-200 hover:text-apple-blue transition-all duration-300">Features</a>
+                    <a href="about.html" class="text-dark-200 hover:text-apple-blue transition-all duration-300">About</a>
+                    <a href="pricing.html" class="text-dark-200 hover:text-apple-blue transition-all duration-300">Pricing</a>
+                    <a href="contact.html" class="text-dark-200 hover:text-apple-blue transition-all duration-300">Contact</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <a href="login.html" class="text-dark-200 hover:text-apple-blue transition-all duration-300">Sign In</a>
+                    <a href="signup.html" class="bg-apple-blue hover:bg-apple-indigo text-white px-6 py-2 rounded-full font-medium transition-all duration-300 transform hover:scale-105">
+                        Sign Up
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sign Up Section -->
+    <section class="min-h-screen flex items-center justify-center py-20 px-4">
+        <div class="max-w-md w-full">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center justify-center p-3 apple-glass rounded-full mb-6">
+                    <div class="w-2 h-2 bg-apple-blue rounded-full mr-3 animate-pulse"></div>
+                    <span class="text-dark-200 text-sm font-medium">Join the AI Revolution</span>
+                </div>
+                <h1 class="text-4xl font-bold gradient-text mb-4">Create Your Account</h1>
+                <p class="text-dark-200 text-lg">
+                    Get early access to Derivity AI and be among the first to experience the future of intelligent assistance.
+                </p>
+            </div>
+
+            <!-- Sign Up Form -->
+            <div class="apple-glass rounded-3xl p-8 signup-card">
+                <form id="signupForm" class="space-y-6">
+                    <!-- Full Name -->
+                    <div class="input-group">
+                        <input type="text" name="fullName" id="fullName" required placeholder=" " 
+                               class="w-full px-4 py-4 rounded-xl apple-glass border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent transition-all duration-300">
+                        <label for="fullName" class="floating-label">Full Name</label>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="input-group">
+                        <input type="email" name="email" id="email" required placeholder=" " 
+                               class="w-full px-4 py-4 rounded-xl apple-glass border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent transition-all duration-300">
+                        <label for="email" class="floating-label">Email Address</label>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="input-group">
+                        <input type="password" name="password" id="password" required placeholder=" " 
+                               class="w-full px-4 py-4 rounded-xl apple-glass border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent transition-all duration-300">
+                        <label for="password" class="floating-label">Password</label>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="input-group">
+                        <input type="password" name="confirmPassword" id="confirmPassword" required placeholder=" " 
+                               class="w-full px-4 py-4 rounded-xl apple-glass border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent transition-all duration-300">
+                        <label for="confirmPassword" class="floating-label">Confirm Password</label>
+                    </div>
+
+                    <!-- Terms and Conditions -->
+                    <div class="flex items-center space-x-3">
+                        <input type="checkbox" name="terms" id="terms" required 
+                               class="w-5 h-5 rounded border-2 border-white/20 bg-transparent focus:ring-2 focus:ring-apple-blue text-apple-blue">
+                        <label for="terms" class="text-dark-200 text-sm">
+                            I agree to the <a href="#" class="text-apple-blue hover:text-apple-indigo transition-colors">Terms of Service</a> and 
+                            <a href="#" class="text-apple-blue hover:text-apple-indigo transition-colors">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <!-- Newsletter -->
+                    <div class="flex items-center space-x-3">
+                        <input type="checkbox" name="newsletter" id="newsletter" 
+                               class="w-5 h-5 rounded border-2 border-white/20 bg-transparent focus:ring-2 focus:ring-apple-blue text-apple-blue">
+                        <label for="newsletter" class="text-dark-200 text-sm">
+                            Send me updates about Derivity AI and new features
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="submitBtn" 
+                            class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl">
+                        Create Account
+                    </button>
+
+                    <!-- Form Message -->
+                    <div id="formMessage" class="hidden text-center text-sm"></div>
+                </form>
+
+                <!-- Divider -->
+                <div class="flex items-center my-8">
+                    <div class="flex-1 h-px bg-white/20"></div>
+                    <span class="px-4 text-dark-300 text-sm">or continue with</span>
+                    <div class="flex-1 h-px bg-white/20"></div>
+                </div>
+
+                <!-- Social Sign Up -->
+                <div class="grid grid-cols-3 gap-4">
+                    <button class="social-btn apple-glass border border-white/20 text-white py-3 rounded-xl font-medium transition-all duration-300 hover:bg-white/10 flex items-center justify-center">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                    </button>
+                    <button class="social-btn apple-glass border border-white/20 text-white py-3 rounded-xl font-medium transition-all duration-300 hover:bg-white/10 flex items-center justify-center">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                        </svg>
+                    </button>
+                    <button class="social-btn apple-glass border border-white/20 text-white py-3 rounded-xl font-medium transition-all duration-300 hover:bg-white/10 flex items-center justify-center">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.042-3.441.219-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.888-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.357-.631-2.748-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.001z"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Sign In Link -->
+                <div class="text-center mt-8">
+                    <p class="text-dark-300">
+                        Already have an account? 
+                        <a href="login.html" class="text-apple-blue hover:text-apple-indigo transition-colors font-medium">Sign in</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Features Preview -->
+            <div class="mt-12 grid grid-cols-3 gap-6 text-center">
+                <div>
+                    <div class="w-12 h-12 bg-apple-blue/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <svg class="w-6 h-6 text-apple-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <p class="text-dark-200 text-sm">Lightning Fast</p>
+                </div>
+                <div>
+                    <div class="w-12 h-12 bg-apple-purple/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <svg class="w-6 h-6 text-apple-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                    <p class="text-dark-200 text-sm">Privacy First</p>
+                </div>
+                <div>
+                    <div class="w-12 h-12 bg-apple-green/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <svg class="w-6 h-6 text-apple-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                    </div>
+                    <p class="text-dark-200 text-sm">Universal</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Sign-up form submission
+        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const formMessage = document.getElementById('formMessage');
+            const form = e.target;
+            
+            // Get form data
+            const formData = new FormData(form);
+            const fullName = formData.get('fullName');
+            const email = formData.get('email');
+            const password = formData.get('password');
+            const confirmPassword = formData.get('confirmPassword');
+            const terms = formData.get('terms');
+            const newsletter = formData.get('newsletter');
+            
+            // Validation
+            if (password !== confirmPassword) {
+                formMessage.textContent = 'Passwords do not match.';
+                formMessage.className = 'text-red-400 text-center text-sm';
+                return;
+            }
+            
+            if (password.length < 8) {
+                formMessage.textContent = 'Password must be at least 8 characters long.';
+                formMessage.className = 'text-red-400 text-center text-sm';
+                return;
+            }
+            
+            if (!terms) {
+                formMessage.textContent = 'Please accept the Terms of Service and Privacy Policy.';
+                formMessage.className = 'text-red-400 text-center text-sm';
+                return;
+            }
+            
+            // Show loading state
+            submitBtn.textContent = 'Creating Account...';
+            submitBtn.disabled = true;
+            formMessage.className = 'hidden';
+            
+            try {
+                const response = await fetch('/api/signup/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        fullName: fullName,
+                        email: email,
+                        password: password,
+                        newsletter: newsletter ? true : false
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    formMessage.textContent = 'Account created successfully! Please check your email for verification.';
+                    formMessage.className = 'text-green-400 text-center text-sm';
+                    form.reset();
+                    
+                    // Redirect to login page after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 2000);
+                } else {
+                    formMessage.textContent = data.message || 'There was an error creating your account. Please try again.';
+                    formMessage.className = 'text-red-400 text-center text-sm';
+                }
+            } catch (error) {
+                formMessage.textContent = 'There was an error creating your account. Please try again.';
+                formMessage.className = 'text-red-400 text-center text-sm';
+            }
+            
+            // Reset button state
+            submitBtn.textContent = 'Create Account';
+            submitBtn.disabled = false;
+        });
+
+        // Social sign-up buttons
+        document.querySelectorAll('.social-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const formMessage = document.getElementById('formMessage');
+                formMessage.textContent = 'Social sign-up will be available soon!';
+                formMessage.className = 'text-apple-blue text-center text-sm';
+            });
+        });
+    </script>
+</body>
+</html>
