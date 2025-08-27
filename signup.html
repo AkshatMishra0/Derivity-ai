@@ -392,6 +392,16 @@
             formMessage.className = 'hidden';
             
             try {
+                // Check if we're running on GitHub Pages (static site) or local Django server
+                const isGitHubPages = window.location.hostname.includes('github.io');
+                
+                if (isGitHubPages) {
+                    // Static fallback for GitHub Pages
+                    formMessage.textContent = 'Signup is currently in development. Contact admin@derivityai.com for early access.';
+                    formMessage.className = 'text-yellow-400 text-center text-sm';
+                    return;
+                }
+                
                 const response = await fetch('/api/signup/', {
                     method: 'POST',
                     headers: {
@@ -422,8 +432,14 @@
                 }
             } catch (error) {
                 console.error('Signup error:', error);
-                formMessage.textContent = 'Network error. Please check your connection and try again.';
-                formMessage.className = 'text-red-400 text-center text-sm';
+                // Check if this is a network error due to GitHub Pages
+                if (window.location.hostname.includes('github.io')) {
+                    formMessage.textContent = 'Signup functionality requires the Django backend. Contact admin@derivityai.com for access.';
+                    formMessage.className = 'text-yellow-400 text-center text-sm';
+                } else {
+                    formMessage.textContent = 'Network error. Please check your connection and try again.';
+                    formMessage.className = 'text-red-400 text-center text-sm';
+                }
             }
             
             // Reset button state

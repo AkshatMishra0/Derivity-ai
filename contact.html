@@ -372,6 +372,17 @@
             formMessage.className = 'hidden';
             
             try {
+                // Check if we're running on GitHub Pages (static site) or local Django server
+                const isGitHubPages = window.location.hostname.includes('github.io');
+                
+                if (isGitHubPages) {
+                    // Static fallback for GitHub Pages
+                    formMessage.textContent = 'Thank you for your interest! Please email us directly at admin@derivityai.com and we\'ll get back to you soon.';
+                    formMessage.className = 'text-yellow-400 text-center text-sm';
+                    form.reset();
+                    return;
+                }
+                
                 const response = await fetch('/api/contact/', {
                     method: 'POST',
                     headers: {
@@ -397,8 +408,15 @@
                     formMessage.className = 'text-red-400 text-center text-sm';
                 }
             } catch (error) {
-                formMessage.textContent = 'There was an error sending your message. Please try again.';
-                formMessage.className = 'text-red-400 text-center text-sm';
+                // Check if this is a network error due to GitHub Pages
+                if (window.location.hostname.includes('github.io')) {
+                    formMessage.textContent = 'Contact form requires the Django backend. Please email admin@derivityai.com directly.';
+                    formMessage.className = 'text-yellow-400 text-center text-sm';
+                    form.reset();
+                } else {
+                    formMessage.textContent = 'There was an error sending your message. Please try again.';
+                    formMessage.className = 'text-red-400 text-center text-sm';
+                }
             }
             
             // Reset button state
