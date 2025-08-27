@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 import json
 
@@ -28,6 +28,10 @@ def contact(request):
 def login_view(request):
     """Login page view"""
     return render(request, 'login.html')
+
+def dashboard_view(request):
+    """Dashboard page view"""
+    return render(request, 'dashboard.html')
 
 def ai_interface(request):
     """AI Interface page view"""
@@ -68,22 +72,38 @@ def user_login(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
-            username = data.get('username')
+            username = data.get('username')  # This will be email from frontend
             password = data.get('password')
             
+            # Try to authenticate with email as username
             user = authenticate(request, username=username, password=password)
+            
+            # If that fails, try to find user by email and use their username
+            if user is None:
+                try:
+                    user_obj = User.objects.get(email=username)
+                    user = authenticate(request, username=user_obj.username, password=password)
+                except User.DoesNotExist:
+                    pass
+            
             if user is not None:
                 login(request, user)
                 return JsonResponse({
                     'status': 'success',
-                    'message': 'Login successful!'
+                    'message': 'Login successful!',
+                    'user': {
+                        'email': user.email,
+                        'first_name': user.first_name,
+                        'last_name': user.last_name
+                    }
                 })
             else:
                 return JsonResponse({
                     'status': 'error',
-                    'message': 'Invalid username or password'
+                    'message': 'Invalid email or password'
                 })
         except Exception as e:
+            print(f"Login error: {str(e)}")
             return JsonResponse({
                 'status': 'error',
                 'message': 'There was an error processing your request'
@@ -183,5 +203,17 @@ def user_signup(request):
                 'status': 'error',
                 'message': 'There was an error creating your account. Please try again.'
             })
+    
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+
+@csrf_exempt
+def user_logout(request):
+    """Handle user logout"""
+    if request.method == 'POST':
+        logout(request)
+        return JsonResponse({
+            'status': 'success',
+            'message': 'Logged out successfully'
+        })
     
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})

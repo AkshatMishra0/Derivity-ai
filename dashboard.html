@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Derivity AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .apple-glass {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .text-apple-blue { color: #007AFF; }
+        .bg-apple-blue { background-color: #007AFF; }
+        .hover\:bg-apple-indigo:hover { background-color: #5856D6; }
+        .text-dark-200 { color: #a1a1aa; }
+        .text-dark-300 { color: #71717a; }
+        .bg-dark-800 { background-color: #27272a; }
+        .bg-dark-900 { background-color: #18181b; }
+    </style>
+</head>
+<body class="bg-dark-900 text-white font-sans min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed w-full apple-glass z-50 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold gradient-text">DERIVITY<span class="text-apple-blue">AI</span></span>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <span id="userEmail" class="text-dark-200 text-sm"></span>
+                    <button id="logoutBtn" class="text-dark-200 hover:text-white transition-colors">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-20 px-4 max-w-6xl mx-auto">
+        <!-- Welcome Section -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold gradient-text mb-4">
+                Welcome to Derivity AI
+            </h1>
+            <p class="text-xl text-dark-200 max-w-2xl mx-auto">
+                Your AI-powered analytics dashboard is ready. Explore the future of artificial intelligence.
+            </p>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <!-- AI Chat Card -->
+            <div class="apple-glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 cursor-pointer" onclick="openAIChat()">
+                <div class="w-12 h-12 bg-apple-blue rounded-xl flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">AI Chat</h3>
+                <p class="text-dark-200">Interact with our advanced AI assistant for insights and analysis.</p>
+            </div>
+
+            <!-- Analytics Card -->
+            <div class="apple-glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 cursor-pointer" onclick="openAnalytics()">
+                <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Analytics</h3>
+                <p class="text-dark-200">View comprehensive analytics and performance insights.</p>
+            </div>
+
+            <!-- Settings Card -->
+            <div class="apple-glass rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 cursor-pointer" onclick="openSettings()">
+                <div class="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Settings</h3>
+                <p class="text-dark-200">Customize your AI preferences and account settings.</p>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="apple-glass rounded-2xl p-6 mb-12">
+            <h2 class="text-2xl font-semibold mb-6">Recent Activity</h2>
+            <div class="space-y-4">
+                <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-xl">
+                    <div class="w-10 h-10 bg-apple-blue rounded-full flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="font-medium">Welcome to Derivity AI!</p>
+                        <p class="text-dark-200 text-sm">Your account has been successfully created. Start exploring AI features.</p>
+                    </div>
+                    <span class="text-dark-300 text-sm ml-auto">Just now</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Chat Modal -->
+    <div id="aiChatModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="apple-glass rounded-2xl p-6 max-w-2xl w-full">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-semibold">AI Assistant</h3>
+                    <button onclick="closeAIChat()" class="text-dark-200 hover:text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="bg-dark-800 rounded-xl p-4 h-64 overflow-y-auto mb-4" id="chatMessages">
+                    <div class="text-center text-dark-300">
+                        <p>AI Chat is currently in development.</p>
+                        <p class="text-sm mt-2">This feature will be available soon with advanced AI capabilities.</p>
+                    </div>
+                </div>
+                <div class="flex space-x-2">
+                    <input type="text" placeholder="Type your message..." class="flex-1 bg-dark-800 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-apple-blue" disabled>
+                    <button class="bg-apple-blue hover:bg-apple-indigo px-6 py-2 rounded-xl transition-colors" disabled>Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const userEmail = localStorage.getItem('userEmail');
+            if (!userEmail) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            document.getElementById('userEmail').textContent = userEmail;
+        });
+
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('isLoggedIn');
+            window.location.href = 'index.html';
+        });
+
+        // Dashboard functions
+        function openAIChat() {
+            document.getElementById('aiChatModal').classList.remove('hidden');
+        }
+
+        function closeAIChat() {
+            document.getElementById('aiChatModal').classList.add('hidden');
+        }
+
+        function openAnalytics() {
+            alert('Analytics dashboard is coming soon! This will provide detailed insights and performance metrics.');
+        }
+
+        function openSettings() {
+            alert('Settings panel is coming soon! Here you will be able to customize your AI preferences.');
+        }
+    </script>
+</body>
+</html>
