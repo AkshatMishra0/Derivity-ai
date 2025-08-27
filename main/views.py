@@ -120,10 +120,23 @@ def user_signup(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
-            full_name = data.get('fullName')
-            email = data.get('email')
-            password = data.get('password')
+            full_name = data.get('fullName', '').strip()
+            email = data.get('email', '').strip().lower()
+            password = data.get('password', '')
             newsletter = data.get('newsletter', False)
+            
+            # Input validation
+            if not email or not password:
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Email and password are required'
+                })
+            
+            if len(password) < 6:
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Password must be at least 6 characters long'
+                })
             
             # Check if user already exists
             if User.objects.filter(email=email).exists():
@@ -158,12 +171,17 @@ def user_signup(request):
                 'status': 'success',
                 'message': 'Account created successfully! Welcome to Derivity AI.'
             })
+        except json.JSONDecodeError:
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Invalid data format'
+            })
         except Exception as e:
+            # Log the actual error for debugging
+            print(f"Signup error: {str(e)}")
             return JsonResponse({
                 'status': 'error',
                 'message': 'There was an error creating your account. Please try again.'
             })
-    
-    return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
     
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})

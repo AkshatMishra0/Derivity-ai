@@ -41,6 +41,7 @@ python manage.py runserver
 ## API Endpoints
 - `/api/contact/` - Contact form submission
 - `/api/login/` - User authentication
+- `/api/signup/` - User registration
 - `/api/ai-chat/` - AI chat placeholder
 
 ## About Page Updates
@@ -69,6 +70,6 @@ Visit `/admin/` and login with the superuser credentials to:
 ## Next Steps
 1. Integrate with actual AI service
 2. Add email notifications for contact form
-3. Implement user registration/login frontend
+3. Add email verification for user registration
 4. Add newsletter functionality
 5. Deploy to production server

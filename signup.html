@@ -355,14 +355,26 @@
             const newsletter = formData.get('newsletter');
             
             // Validation
+            if (!fullName || fullName.trim().length < 2) {
+                formMessage.textContent = 'Please enter your full name.';
+                formMessage.className = 'text-red-400 text-center text-sm';
+                return;
+            }
+            
+            if (!email || !email.includes('@')) {
+                formMessage.textContent = 'Please enter a valid email address.';
+                formMessage.className = 'text-red-400 text-center text-sm';
+                return;
+            }
+            
             if (password !== confirmPassword) {
                 formMessage.textContent = 'Passwords do not match.';
                 formMessage.className = 'text-red-400 text-center text-sm';
                 return;
             }
             
-            if (password.length < 8) {
-                formMessage.textContent = 'Password must be at least 8 characters long.';
+            if (password.length < 6) {
+                formMessage.textContent = 'Password must be at least 6 characters long.';
                 formMessage.className = 'text-red-400 text-center text-sm';
                 return;
             }
@@ -376,6 +388,7 @@
             // Show loading state
             submitBtn.textContent = 'Creating Account...';
             submitBtn.disabled = true;
+            formMessage.textContent = '';
             formMessage.className = 'hidden';
             
             try {
@@ -385,8 +398,8 @@
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        fullName: fullName,
-                        email: email,
+                        fullName: fullName.trim(),
+                        email: email.trim().toLowerCase(),
                         password: password,
                         newsletter: newsletter ? true : false
                     })
@@ -395,7 +408,7 @@
                 const data = await response.json();
                 
                 if (data.status === 'success') {
-                    formMessage.textContent = 'Account created successfully! Please check your email for verification.';
+                    formMessage.textContent = data.message || 'Account created successfully! Redirecting to login...';
                     formMessage.className = 'text-green-400 text-center text-sm';
                     form.reset();
                     
@@ -408,7 +421,8 @@
                     formMessage.className = 'text-red-400 text-center text-sm';
                 }
             } catch (error) {
-                formMessage.textContent = 'There was an error creating your account. Please try again.';
+                console.error('Signup error:', error);
+                formMessage.textContent = 'Network error. Please check your connection and try again.';
                 formMessage.className = 'text-red-400 text-center text-sm';
             }
             
