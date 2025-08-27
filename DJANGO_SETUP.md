@@ -37,10 +37,13 @@ python manage.py runserver
 ### 5. Access the Website
 - **Frontend**: http://127.0.0.1:8000/
 - **Admin Panel**: http://127.0.0.1:8000/admin/
+- **Login Page**: http://127.0.0.1:8000/login/
+- **Dashboard**: http://127.0.0.1:8000/dashboard/ (after login)
 
 ## API Endpoints
 - `/api/contact/` - Contact form submission
 - `/api/login/` - User authentication
+- `/api/logout/` - User logout
 - `/api/signup/` - User registration
 - `/api/ai-chat/` - AI chat placeholder
 
