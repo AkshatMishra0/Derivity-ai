@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Derivity AI - The Universal Intelligence Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="static/css/mobile-responsive.css">
+    <script src="static/js/navigation.js"></script>
+    <script src="static/js/mobile-enhanced.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -243,7 +247,7 @@
                         </div>
                     </div>
                     
-                    <button class="md:hidden">
+                    <button id="mobile-menu-btn" class="md:hidden">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
@@ -253,39 +257,62 @@
         </div>
     </nav>
 
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-50 hidden">
+        <div class="flex flex-col h-full justify-center items-center p-8">
+            <div class="text-center space-y-8">
+                <a href="index.html" class="text-2xl font-semibold text-white hover:text-apple-blue transition-colors">Home</a>
+                <a href="features.html" class="text-2xl font-semibold text-white hover:text-apple-blue transition-colors">Features</a>
+                <a href="ai-interface.html" class="text-2xl font-semibold text-white hover:text-apple-blue transition-colors">AI Interface</a>
+                <a href="pricing.html" class="text-2xl font-semibold text-white hover:text-apple-blue transition-colors">Pricing</a>
+                <a href="about.html" class="text-2xl font-semibold text-white hover:text-apple-blue transition-colors">About</a>
+                <a href="contact.html" class="text-2xl font-semibold text-white hover:text-apple-blue transition-colors">Contact</a>
+                <div class="pt-8 border-t border-white/20">
+                    <a href="login.html" class="text-xl text-dark-200 hover:text-apple-blue transition-colors block mb-4">Login</a>
+                    <a href="signup.html" class="bg-apple-blue text-white px-6 py-3 rounded-full font-semibold transition-colors hover:bg-apple-indigo">Sign Up</a>
+                </div>
+            </div>
+            <button id="mobile-menu-close" class="absolute top-8 right-8 text-white">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+    <section class="hero-section relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-16 section-spacing">
         <div id="particles-container" class="absolute inset-0"></div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <div class="mb-8">
-                <div class="inline-flex items-center justify-center p-3 apple-glass rounded-full mb-8 animate-glow">
-                    <div class="w-2 h-2 bg-apple-blue rounded-full mr-3 animate-pulse"></div>
-                    <span class="titanium-text text-sm font-medium">Universal. Intelligent. Seamlessly Integrated.</span>
+            <div class="mb-6 sm:mb-8">
+                <div class="inline-flex items-center justify-center p-2 sm:p-3 apple-glass rounded-full mb-6 sm:mb-8">
+                    <div class="w-2 h-2 bg-apple-blue rounded-full mr-2 sm:mr-3"></div>
+                    <span class="titanium-text text-xs sm:text-sm font-medium">Universal. Intelligent. Seamlessly Integrated.</span>
                 </div>
             </div>
             
-            <h1 class="text-6xl md:text-8xl font-display font-bold mb-8 tracking-tight">
+            <h1 class="text-4xl sm:text-6xl md:text-8xl font-display font-bold mb-6 sm:mb-8 tracking-tight">
                 <span class="gradient-text">DERIVITY</span>
                 <span class="text-apple-blue">AI</span>
             </h1>
             
-            <p class="text-xl md:text-2xl text-dark-200 mb-12 max-w-4xl mx-auto font-light leading-relaxed">
+            <p class="text-lg sm:text-xl md:text-2xl text-dark-200 mb-8 sm:mb-12 max-w-4xl mx-auto font-light leading-relaxed px-4">
                 Where human imagination meets limitless intelligence. 
-                <br class="hidden md:block">
+                <br class="hidden sm:block">
                 Redefining what's possible in work, creativity, and life itself.
             </p>
             
-            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20">
-                <a href="ai-interface.html" class="bg-apple-blue hover:bg-apple-indigo px-10 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 animate-glow shadow-2xl">
+            <div class="button-group flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mb-12 sm:mb-20 px-4">
+                <a href="ai-interface.html" class="w-full sm:w-auto bg-apple-blue hover:bg-apple-indigo px-8 sm:px-10 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl text-center">
                     Try Derivity AI Now
                 </a>
-                <a href="features.html" class="apple-glass border border-white/20 text-dark-100 hover:bg-white/10 px-10 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105">
+                <a href="features.html" class="w-full sm:w-auto apple-glass border border-white/20 text-dark-100 hover:bg-white/10 px-8 sm:px-10 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg transition-all duration-300 transform hover:scale-105 text-center">
                     Explore Capabilities
                 </a>
             </div>
             
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
+            <div class="stats-grid grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 max-w-5xl mx-auto px-4">
                 <div class="text-center group">
                     <div class="w-16 h-16 apple-glass rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                         <svg class="w-8 h-8 text-apple-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -327,43 +354,43 @@
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="py-24 bg-gradient-to-b from-dark-900 to-dark-800">
+    <section id="features" class="section-spacing py-20 sm:py-32 bg-gradient-to-b from-dark-900 to-dark-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-20">
-                <h2 class="text-5xl md:text-6xl font-display font-bold mb-8 tracking-tight">
+            <div class="text-center mb-12 sm:mb-20">
+                <h2 class="text-3xl sm:text-5xl md:text-6xl font-display font-bold mb-6 sm:mb-8 tracking-tight">
                     <span class="gradient-text">Beyond</span> Intelligence
                 </h2>
-                <p class="text-xl text-dark-200 max-w-4xl mx-auto font-light leading-relaxed">
+                <p class="text-base sm:text-xl text-dark-200 max-w-4xl mx-auto font-light leading-relaxed px-4">
                     More than AI. It's your universal companion for work, creativity, and life.
-                    <br class="hidden md:block">
+                    <br class="hidden sm:block">
                     Seamlessly integrated with every app you love.
                 </p>
             </div>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 <!-- Feature 1 -->
-                <div class="titanium-border group hover:scale-105 transition-all duration-500">
-                    <div class="h-full p-8 relative overflow-hidden">
-                        <div class="w-16 h-16 apple-glass rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <svg class="w-8 h-8 text-apple-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="feature-card titanium-border group hover:scale-105 transition-all duration-500">
+                    <div class="h-full p-6 sm:p-8 relative overflow-hidden">
+                        <div class="w-12 h-12 sm:w-16 sm:h-16 apple-glass rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-6 h-6 sm:w-8 sm:h-8 text-apple-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-semibold mb-4 titanium-text">Creative Genius</h3>
-                        <p class="text-dark-200 leading-relaxed">From writing novels to designing logos, creating presentations to composing music - unleash unlimited creative potential.</p>
+                        <h3 class="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 titanium-text">Creative Genius</h3>
+                        <p class="text-sm sm:text-base text-dark-200 leading-relaxed">From writing novels to designing logos, creating presentations to composing music - unleash unlimited creative potential.</p>
                     </div>
                 </div>
                 
                 <!-- Feature 2 -->
-                <div class="titanium-border group hover:scale-105 transition-all duration-500">
-                    <div class="h-full p-8 relative overflow-hidden">
-                        <div class="w-16 h-16 apple-glass rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <svg class="w-8 h-8 text-apple-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="feature-card titanium-border group hover:scale-105 transition-all duration-500">
+                    <div class="h-full p-6 sm:p-8 relative overflow-hidden">
+                        <div class="w-12 h-12 sm:w-16 sm:h-16 apple-glass rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-6 h-6 sm:w-8 sm:h-8 text-apple-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-semibold mb-4 titanium-text">Universal Assistant</h3>
-                        <p class="text-dark-200 leading-relaxed">Email management, calendar scheduling, document creation, data analysis - one AI handles it all with perfection.</p>
+                        <h3 class="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 titanium-text">Universal Assistant</h3>
+                        <p class="text-sm sm:text-base text-dark-200 leading-relaxed">Email management, calendar scheduling, document creation, data analysis - one AI handles it all with perfection.</p>
                     </div>
                 </div>
                 

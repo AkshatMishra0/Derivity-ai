@@ -1,0 +1,243 @@
+/* Mobile-First Responsive Design for Derivity AI */
+
+/* Reset and base improvements */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile Navigation Fixes */
+@media (max-width: 768px) {
+    /* Navigation improvements */
+    .max-w-7xl {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    
+    /* Hero Section Mobile */
+    .hero-section {
+        padding-top: 6rem !important;
+        padding-bottom: 4rem !important;
+        min-height: auto !important;
+    }
+    
+    /* Typography scaling for mobile */
+    h1 {
+        font-size: 2.5rem !important;
+        line-height: 1.1 !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    h2 {
+        font-size: 2rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    /* Text sizing */
+    .text-xl {
+        font-size: 1.125rem !important;
+        line-height: 1.5 !important;
+    }
+    
+    .text-2xl {
+        font-size: 1.25rem !important;
+        line-height: 1.4 !important;
+    }
+    
+    /* Button improvements */
+    .button-group {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        width: 100% !important;
+    }
+    
+    .button-group a {
+        width: 100% !important;
+        text-align: center !important;
+        padding: 1rem 2rem !important;
+        font-size: 1rem !important;
+    }
+    
+    /* Grid fixes */
+    .grid-cols-2 {
+        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+        gap: 1.5rem !important;
+    }
+    
+    .grid-cols-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 1rem !important;
+    }
+    
+    /* Card spacing */
+    .feature-card {
+        padding: 1.5rem !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    /* Section spacing */
+    .section-spacing {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+    
+    /* Remove problematic animations on mobile */
+    .animate-glow,
+    .animate-pulse {
+        animation: none !important;
+    }
+    
+    /* Stats grid mobile fix */
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 1.5rem !important;
+    }
+    
+    /* Mobile menu improvements */
+    #mobile-menu {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        background: rgba(0, 0, 0, 0.95) !important;
+        backdrop-filter: blur(20px) !important;
+        z-index: 9999 !important;
+        padding: 2rem !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+    
+    #mobile-menu.hidden {
+        display: none !important;
+    }
+    
+    #mobile-menu a {
+        font-size: 1.5rem !important;
+        padding: 1rem 0 !important;
+        width: 100% !important;
+        text-align: center !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+}
+
+/* Tablet optimizations */
+@media (min-width: 769px) and (max-width: 1024px) {
+    h1 {
+        font-size: 4rem !important;
+    }
+    
+    h2 {
+        font-size: 3rem !important;
+    }
+    
+    .grid-cols-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+    
+    .grid-cols-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2rem !important;
+        line-height: 1.1 !important;
+    }
+    
+    h2 {
+        font-size: 1.75rem !important;
+    }
+    
+    .text-xl {
+        font-size: 1rem !important;
+    }
+    
+    .max-w-7xl {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+    }
+    
+    /* Force single column for very small screens */
+    .grid-cols-2,
+    .grid-cols-3,
+    .grid-cols-4 {
+        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+        gap: 1rem !important;
+    }
+    
+    .feature-card {
+        padding: 1rem !important;
+    }
+    
+    .button-group a {
+        padding: 0.75rem 1.5rem !important;
+        font-size: 0.9rem !important;
+    }
+}
+
+/* Performance optimizations */
+.particle {
+    will-change: transform !important;
+    transform: translateZ(0) !important;
+}
+
+/* Reduce motion for better performance */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Touch improvements */
+@media (hover: none) and (pointer: coarse) {
+    .hover\:scale-105:hover {
+        transform: none !important;
+    }
+    
+    .hover\:bg-apple-indigo:hover {
+        background-color: #007aff !important;
+    }
+    
+    .hover\:bg-white\/10:hover {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+}
+
+/* Loading optimization */
+.lazy-load {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.lazy-load.loaded {
+    opacity: 1;
+}
+
+/* Better scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Fix for iOS Safari */
+@supports (-webkit-touch-callout: none) {
+    body {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .fixed {
+        position: -webkit-sticky !important;
+        position: sticky !important;
+    }
+}

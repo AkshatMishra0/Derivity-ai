@@ -1,0 +1,533 @@
+/* Mobile Responsive Fixes */
+
+/* Reset and Base Styles */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+body {
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
+    max-width: 100vw;
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+}
+
+/* Container and Layout Fixes */
+.max-w-7xl,
+.max-w-6xl,
+.max-w-5xl,
+.max-w-4xl {
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+/* Navigation Fixes */
+.nav-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    width: 100%;
+    padding: 0 1rem;
+}
+
+/* Mobile menu button should always be visible on mobile */
+#mobile-menu-btn {
+    display: block !important;
+    z-index: 10000;
+    position: relative;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+@media (min-width: 768px) {
+    #mobile-menu-btn {
+        display: none !important;
+    }
+}
+
+/* Hero Section Mobile Fixes */
+.hero-section {
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+    padding-top: 5rem;
+    padding-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 100vh;
+        min-height: calc(var(--vh, 1vh) * 100);
+        padding-top: 4rem;
+        padding-bottom: 2rem;
+        text-align: center;
+    }
+    
+    .hero-section h1 {
+        font-size: 2.5rem !important;
+        line-height: 1.1 !important;
+        margin-bottom: 1rem !important;
+        padding: 0 0.5rem;
+        word-break: break-word;
+        hyphens: auto;
+    }
+    
+    .hero-section p {
+        font-size: 1.1rem !important;
+        line-height: 1.5 !important;
+        margin-bottom: 2rem !important;
+        padding: 0 1rem;
+        max-width: 90% !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 640px) {
+    .hero-section {
+        padding-top: 3.5rem;
+        padding-bottom: 1.5rem;
+    }
+    
+    .hero-section h1 {
+        font-size: 2rem !important;
+        line-height: 1.1 !important;
+    }
+    
+    .hero-section p {
+        font-size: 1rem !important;
+        padding: 0 0.5rem;
+    }
+}
+
+/* Button Fixes */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+    .button-group {
+        flex-direction: row;
+        justify-content: center;
+        max-width: none;
+    }
+}
+
+.cta-button {
+    width: 100%;
+    max-width: 280px;
+    padding: 1rem 2rem;
+    text-align: center;
+    white-space: nowrap;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+    .cta-button {
+        width: auto;
+        max-width: none;
+    }
+}
+
+/* Grid Fixes */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+    padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+    }
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+    .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .feature-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Card Fixes */
+.feature-card {
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.feature-card h3 {
+    font-size: 1.25rem;
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
+    word-break: break-word;
+}
+
+.feature-card p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+/* Section Spacing */
+.section-spacing {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+    .section-spacing {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .section-spacing {
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+    }
+}
+
+/* Text Responsiveness */
+.responsive-title {
+    font-size: 2rem;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    text-align: center;
+    padding: 0 1rem;
+    word-break: break-word;
+    hyphens: auto;
+}
+
+@media (min-width: 768px) {
+    .responsive-title {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .responsive-title {
+        font-size: 4rem;
+        margin-bottom: 2rem;
+    }
+}
+
+.responsive-subtitle {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    padding: 0 1rem;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (min-width: 768px) {
+    .responsive-subtitle {
+        font-size: 1.25rem;
+        margin-bottom: 2rem;
+        max-width: 80%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .responsive-subtitle {
+        font-size: 1.5rem;
+        margin-bottom: 3rem;
+        max-width: 70%;
+    }
+}
+
+/* Mobile Menu Fixes */
+#mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    display: none;
+}
+
+#mobile-menu.active {
+    display: flex;
+}
+
+#mobile-menu-btn {
+    z-index: 10000;
+    position: relative;
+}
+
+/* Prevent horizontal scroll */
+.no-scroll {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+/* Image Responsiveness */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Form Fixes */
+.form-container {
+    max-width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+.form-container input,
+.form-container textarea,
+.form-container select {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Utility Classes */
+.mobile-hidden {
+    display: block;
+}
+
+@media (max-width: 767px) {
+    .mobile-hidden {
+        display: none;
+    }
+}
+
+.mobile-only {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .mobile-only {
+        display: block;
+    }
+}
+
+/* Performance Improvements */
+.performance-optimized {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: transform;
+}
+
+/* Smooth Animations */
+.smooth-transition {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Z-index fixes to prevent overlapping */
+nav, .nav-container {
+    z-index: 1000;
+}
+
+.hero-section {
+    z-index: 1;
+    position: relative;
+}
+
+.hero-section > div {
+    z-index: 10;
+    position: relative;
+}
+
+#particles-container {
+    z-index: -1;
+}
+
+/* Debug: Force visibility for troubleshooting */
+.hero-section h1,
+.hero-section p,
+.hero-section .button-group,
+.stats-grid > div,
+.feature-card {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* Ensure main content is always visible */
+.hero-section,
+.hero-section *,
+section,
+section *,
+.feature-card,
+.stats-grid,
+.button-group,
+.cta-button {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Exception for intentionally hidden elements */
+#mobile-menu.hidden,
+.hidden.md\:flex,
+.user-menu.hidden {
+    opacity: 1;
+    visibility: hidden;
+}
+
+/* Animation Classes */
+.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-on-scroll {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Only hide for animation on larger screens with JS support */
+@media (min-width: 768px) {
+    .js .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    
+    .js .animate-in {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* Touch Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .hover-effect:hover {
+        transform: none;
+    }
+    
+    .hover-effect:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+    
+    /* Disable hover states on mobile */
+    .group:hover .group-hover\:scale-110 {
+        transform: none;
+    }
+    
+    .group:active .group-hover\:scale-110 {
+        transform: scale(1.05);
+    }
+}
+
+/* Improved button touch targets */
+button, .btn, a[class*="button"], .cta-button {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+}
+
+/* Prevent text selection on UI elements */
+.no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Improved focus states for accessibility */
+button:focus,
+a:focus,
+input:focus,
+textarea:focus {
+    outline: 2px solid #007aff;
+    outline-offset: 2px;
+}
+
+/* Safe Area for iOS */
+@supports (padding: max(0px)) {
+    .safe-area-inset {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+        padding-top: max(1rem, env(safe-area-inset-top));
+        padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    }
+}
+
+/* Fix for iOS Safari viewport units */
+@supports (-webkit-appearance: none) {
+    .hero-section {
+        min-height: -webkit-fill-available;
+    }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+    body {
+        color-scheme: dark;
+    }
+}
