@@ -146,6 +146,27 @@
             overflow-x: hidden;
         }
         
+        /* Fix for hero section scroll issue */
+        .hero-section {
+            position: relative;
+            transform: none !important;
+        }
+        
+        .hero-section > div {
+            position: relative;
+            z-index: 10;
+            transform: none !important;
+        }
+        
+        /* Ensure all hero content elements stay in place */
+        .hero-section h1,
+        .hero-section p,
+        .hero-section .button-group,
+        .hero-section .stats-grid {
+            transform: none !important;
+            position: relative;
+        }
+        
         body::before {
             content: '';
             position: fixed;

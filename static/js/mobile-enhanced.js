@@ -238,14 +238,8 @@ class MobileOptimizer {
             }
         }
 
-        // Parallax effect for hero section (disabled on mobile for performance)
-        if (!this.isMobile) {
-            const hero = document.querySelector('.hero-section');
-            if (hero) {
-                const speed = scrollTop * 0.5;
-                hero.style.transform = `translateY(${speed}px)`;
-            }
-        }
+        // Parallax effect removed to fix hero content scrolling issue
+        // Hero section content should remain static when scrolling
     }
 
     handleOrientationChange() {
