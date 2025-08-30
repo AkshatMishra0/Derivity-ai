@@ -224,6 +224,7 @@
                         <input type="email" name="email" id="email" required placeholder=" " 
                                class="w-full px-4 py-4 rounded-xl apple-glass border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent transition-all duration-300">
                         <label for="email" class="floating-label">Email Address</label>
+                        <div id="emailValidation" class="hidden text-xs mt-1 px-2"></div>
                     </div>
 
                     <!-- Password -->
@@ -231,6 +232,35 @@
                         <input type="password" name="password" id="password" required placeholder=" " 
                                class="w-full px-4 py-4 rounded-xl apple-glass border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent transition-all duration-300">
                         <label for="password" class="floating-label">Password</label>
+                        <div id="passwordStrength" class="hidden text-xs mt-1 px-2">
+                            <div class="flex items-center space-x-2 mb-1">
+                                <div class="flex space-x-1">
+                                    <div class="w-2 h-2 rounded-full bg-gray-600" id="strength1"></div>
+                                    <div class="w-2 h-2 rounded-full bg-gray-600" id="strength2"></div>
+                                    <div class="w-2 h-2 rounded-full bg-gray-600" id="strength3"></div>
+                                    <div class="w-2 h-2 rounded-full bg-gray-600" id="strength4"></div>
+                                </div>
+                                <span id="strengthText" class="text-gray-400">Enter password</span>
+                            </div>
+                            <div class="space-y-1 text-gray-400">
+                                <div class="flex items-center space-x-2">
+                                    <span id="req1" class="text-red-400">✗</span>
+                                    <span class="text-xs">At least 8 characters</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span id="req2" class="text-red-400">✗</span>
+                                    <span class="text-xs">One uppercase letter</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span id="req3" class="text-red-400">✗</span>
+                                    <span class="text-xs">One lowercase letter</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span id="req4" class="text-red-400">✗</span>
+                                    <span class="text-xs">One number</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Confirm Password -->
@@ -238,6 +268,7 @@
                         <input type="password" name="confirmPassword" id="confirmPassword" required placeholder=" " 
                                class="w-full px-4 py-4 rounded-xl apple-glass border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent transition-all duration-300">
                         <label for="confirmPassword" class="floating-label">Confirm Password</label>
+                        <div id="passwordMatch" class="hidden text-xs mt-1 px-2"></div>
                     </div>
 
                     <!-- Terms and Conditions -->
@@ -348,6 +379,154 @@
                 return '/';
             }
         }
+        
+        // Real-time email validation
+        let emailValidationTimeout;
+        document.getElementById('email').addEventListener('input', function(e) {
+            const email = e.target.value.trim().toLowerCase();
+            const validationDiv = document.getElementById('emailValidation');
+            
+            if (!email) {
+                validationDiv.classList.add('hidden');
+                return;
+            }
+            
+            // Clear previous timeout
+            clearTimeout(emailValidationTimeout);
+            
+            // Basic format validation
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(email)) {
+                validationDiv.innerHTML = '<span class="text-red-400">Invalid email format</span>';
+                validationDiv.classList.remove('hidden');
+                return;
+            }
+            
+            // Show checking message
+            validationDiv.innerHTML = '<span class="text-yellow-400">Checking email...</span>';
+            validationDiv.classList.remove('hidden');
+            
+            // Debounce API call
+            emailValidationTimeout = setTimeout(async () => {
+                try {
+                    if (!window.location.hostname.includes('github.io')) {
+                        const response = await fetch('/api/validate-email/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ email: email })
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (data.valid) {
+                            if (data.exists) {
+                                validationDiv.innerHTML = '<span class="text-red-400">Email already registered</span>';
+                            } else {
+                                validationDiv.innerHTML = '<span class="text-green-400">Email available</span>';
+                            }
+                        } else {
+                            validationDiv.innerHTML = `<span class="text-red-400">${data.message}</span>`;
+                        }
+                    } else {
+                        validationDiv.innerHTML = '<span class="text-green-400">Email format valid</span>';
+                    }
+                } catch (error) {
+                    console.error('Email validation error:', error);
+                    validationDiv.innerHTML = '<span class="text-green-400">Email format valid</span>';
+                }
+            }, 500);
+        });
+        
+        // Real-time password strength validation
+        document.getElementById('password').addEventListener('input', function(e) {
+            const password = e.target.value;
+            const strengthDiv = document.getElementById('passwordStrength');
+            
+            if (!password) {
+                strengthDiv.classList.add('hidden');
+                return;
+            }
+            
+            strengthDiv.classList.remove('hidden');
+            
+            // Check requirements
+            const req1 = password.length >= 8;
+            const req2 = /[A-Z]/.test(password);
+            const req3 = /[a-z]/.test(password);
+            const req4 = /\d/.test(password);
+            
+            // Update requirement indicators
+            document.getElementById('req1').textContent = req1 ? '✓' : '✗';
+            document.getElementById('req1').className = req1 ? 'text-green-400' : 'text-red-400';
+            
+            document.getElementById('req2').textContent = req2 ? '✓' : '✗';
+            document.getElementById('req2').className = req2 ? 'text-green-400' : 'text-red-400';
+            
+            document.getElementById('req3').textContent = req3 ? '✓' : '✗';
+            document.getElementById('req3').className = req3 ? 'text-green-400' : 'text-red-400';
+            
+            document.getElementById('req4').textContent = req4 ? '✓' : '✗';
+            document.getElementById('req4').className = req4 ? 'text-green-400' : 'text-red-400';
+            
+            // Calculate strength
+            const score = [req1, req2, req3, req4].filter(Boolean).length;
+            const strengthBars = ['strength1', 'strength2', 'strength3', 'strength4'];
+            const strengthText = document.getElementById('strengthText');
+            
+            // Reset all bars
+            strengthBars.forEach(bar => {
+                document.getElementById(bar).className = 'w-2 h-2 rounded-full bg-gray-600';
+            });
+            
+            // Update strength bars and text
+            if (score === 0) {
+                strengthText.textContent = 'Enter password';
+                strengthText.className = 'text-gray-400';
+            } else if (score === 1) {
+                document.getElementById('strength1').className = 'w-2 h-2 rounded-full bg-red-500';
+                strengthText.textContent = 'Weak';
+                strengthText.className = 'text-red-400';
+            } else if (score === 2) {
+                document.getElementById('strength1').className = 'w-2 h-2 rounded-full bg-yellow-500';
+                document.getElementById('strength2').className = 'w-2 h-2 rounded-full bg-yellow-500';
+                strengthText.textContent = 'Fair';
+                strengthText.className = 'text-yellow-400';
+            } else if (score === 3) {
+                document.getElementById('strength1').className = 'w-2 h-2 rounded-full bg-blue-500';
+                document.getElementById('strength2').className = 'w-2 h-2 rounded-full bg-blue-500';
+                document.getElementById('strength3').className = 'w-2 h-2 rounded-full bg-blue-500';
+                strengthText.textContent = 'Good';
+                strengthText.className = 'text-blue-400';
+            } else if (score === 4) {
+                strengthBars.forEach(bar => {
+                    document.getElementById(bar).className = 'w-2 h-2 rounded-full bg-green-500';
+                });
+                strengthText.textContent = 'Strong';
+                strengthText.className = 'text-green-400';
+            }
+        });
+        
+        // Real-time password confirmation validation
+        document.getElementById('confirmPassword').addEventListener('input', function(e) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = e.target.value;
+            const matchDiv = document.getElementById('passwordMatch');
+            
+            if (!confirmPassword) {
+                matchDiv.classList.add('hidden');
+                return;
+            }
+            
+            matchDiv.classList.remove('hidden');
+            
+            if (password === confirmPassword) {
+                matchDiv.innerHTML = '<span class="text-green-400">Passwords match</span>';
+            } else {
+                matchDiv.innerHTML = '<span class="text-red-400">Passwords do not match</span>';
+            }
+        });
         
         // Sign-up form submission
         document.getElementById('signupForm').addEventListener('submit', async function(e) {

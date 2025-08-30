@@ -235,53 +235,94 @@ class DerivityNavigation {
         if (userInitialEl) userInitialEl.textContent = this.userEmail.charAt(0).toUpperCase();
     }
 
-    // Check backend authentication status
+    // Check backend authentication status with enhanced sync
     async checkBackendAuth() {
         if (window.location.hostname.includes('github.io')) return;
         
         try {
-            const response = await fetch('/api/auth-status/');
+            const response = await fetch('/api/auth-status/', {
+                method: 'GET',
+                credentials: 'include'
+            });
             const data = await response.json();
             
             if (data.authenticated !== this.isLoggedIn) {
                 if (data.authenticated) {
-                    // Backend says user is logged in, update frontend
+                    // Backend says user is logged in, update frontend with complete user data
                     localStorage.setItem('isLoggedIn', 'true');
                     localStorage.setItem('userEmail', data.user.email);
+                    localStorage.setItem('userData', JSON.stringify(data.user));
                     this.isLoggedIn = true;
                     this.userEmail = data.user.email;
+                    
+                    console.log('Auth sync: User logged in via backend');
                 } else {
                     // Backend says user is not logged in, clear frontend
                     this.clearAuthData();
+                    console.log('Auth sync: User logged out via backend');
                 }
                 this.updateUIBasedOnAuthState();
+            } else if (data.authenticated && data.user) {
+                // Update user data even if auth state matches
+                localStorage.setItem('userData', JSON.stringify(data.user));
+                localStorage.setItem('userEmail', data.user.email);
+                this.userEmail = data.user.email;
             }
         } catch (error) {
             console.log('Could not verify auth status:', error);
+            // If we can't reach the backend but have local auth data, keep it
+            // This allows offline functionality while maintaining sync when online
         }
     }
 
-    // Handle logout across all pages
+    // Handle logout across all pages with enhanced backend sync
     async handleLogout() {
         try {
             if (!window.location.hostname.includes('github.io')) {
-                await fetch('/api/logout/', { method: 'POST' });
+                const response = await fetch('/api/logout/', { 
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                
+                const data = await response.json();
+                if (data.status === 'success') {
+                    console.log('Backend logout successful');
+                } else {
+                    console.log('Backend logout failed:', data.message);
+                }
             }
         } catch (error) {
-            console.log('Backend logout failed:', error);
+            console.log('Backend logout error:', error);
         }
         
+        // Always clear frontend data regardless of backend response
         this.clearAuthData();
-        window.location.href = 'index.html';
+        
+        // Show logout message briefly before redirect
+        const logoutMessage = document.createElement('div');
+        logoutMessage.className = 'fixed top-4 right-4 z-50 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg';
+        logoutMessage.textContent = 'Logged out successfully';
+        document.body.appendChild(logoutMessage);
+        
+        setTimeout(() => {
+            document.body.removeChild(logoutMessage);
+            window.location.href = 'index.html';
+        }, 1500);
     }
 
-    // Clear authentication data
+    // Clear authentication data completely
     clearAuthData() {
         localStorage.removeItem('isLoggedIn');
         localStorage.removeItem('userEmail');
         localStorage.removeItem('userData');
+        localStorage.removeItem('authToken'); // In case we add token-based auth later
+        sessionStorage.clear(); // Clear any session-specific data
         this.isLoggedIn = false;
         this.userEmail = null;
+        this.updateUIBasedOnAuthState();
     }
 
     // Show login required modal

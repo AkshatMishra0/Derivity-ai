@@ -21,6 +21,6 @@ urlpatterns = [
     path('api/ai-chat/', views.ai_chat, name='ai_chat'),
     path('api/csrf-token/', views.get_csrf_token, name='get_csrf_token'),
     path('api/auth-status/', views.check_auth_status, name='check_auth_status'),
-    path('api/profile/', views.get_user_profile, name='get_user_profile'),
     path('api/profile/update/', views.update_user_profile, name='update_user_profile'),
+    path('api/validate-email/', views.validate_email_api, name='validate_email'),
 ]
