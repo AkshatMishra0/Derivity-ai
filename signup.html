@@ -123,12 +123,21 @@
         
         .input-group {
             position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .input-group input {
+            position: relative;
+            z-index: 2;
         }
         
         .input-group input:focus + label,
         .input-group input:not(:placeholder-shown) + label {
-            transform: translateY(-28px) scale(0.8);
+            transform: translateY(-32px) scale(0.85);
             color: #007aff;
+            background: linear-gradient(135deg, #000000 0%, #0a0a0a 25%, #111111 50%, #0a0a0a 75%, #000000 100%);
+            padding: 0 8px;
+            border-radius: 4px;
         }
         
         .floating-label {
@@ -139,6 +148,44 @@
             transition: all 0.3s ease;
             pointer-events: none;
             color: #8e8e93;
+            background: transparent;
+            z-index: 3;
+            white-space: nowrap;
+        }
+
+        /* Fix validation and strength indicators spacing */
+        .input-group .validation-feedback {
+            margin-top: 8px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Ensure password strength doesn't overlap */
+        #passwordStrength {
+            position: relative;
+            z-index: 1;
+            min-height: auto;
+        }
+
+        /* Fix spacing between form fields */
+        .space-y-6 > * + * {
+            margin-top: 2rem !important;
+        }
+
+        /* Mobile responsiveness for validation */
+        @media (max-width: 640px) {
+            .input-group {
+                margin-bottom: 2rem;
+            }
+            
+            #passwordStrength .space-y-1 {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 4px;
+            }
         }
         
         @keyframes float {
@@ -224,7 +271,7 @@
                         <input type="email" name="email" id="email" required placeholder=" " 
                                class="w-full px-4 py-4 rounded-xl apple-glass border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent transition-all duration-300">
                         <label for="email" class="floating-label">Email Address</label>
-                        <div id="emailValidation" class="hidden text-xs mt-1 px-2"></div>
+                        <div id="emailValidation" class="hidden validation-feedback text-xs"></div>
                     </div>
 
                     <!-- Password -->
@@ -232,32 +279,32 @@
                         <input type="password" name="password" id="password" required placeholder=" " 
                                class="w-full px-4 py-4 rounded-xl apple-glass border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent transition-all duration-300">
                         <label for="password" class="floating-label">Password</label>
-                        <div id="passwordStrength" class="hidden text-xs mt-1 px-2">
-                            <div class="flex items-center space-x-2 mb-1">
+                        <div id="passwordStrength" class="hidden validation-feedback text-xs">
+                            <div class="flex items-center space-x-2 mb-2">
                                 <div class="flex space-x-1">
                                     <div class="w-2 h-2 rounded-full bg-gray-600" id="strength1"></div>
                                     <div class="w-2 h-2 rounded-full bg-gray-600" id="strength2"></div>
                                     <div class="w-2 h-2 rounded-full bg-gray-600" id="strength3"></div>
                                     <div class="w-2 h-2 rounded-full bg-gray-600" id="strength4"></div>
                                 </div>
-                                <span id="strengthText" class="text-gray-400">Enter password</span>
+                                <span id="strengthText" class="text-gray-400 text-xs">Enter password</span>
                             </div>
-                            <div class="space-y-1 text-gray-400">
-                                <div class="flex items-center space-x-2">
-                                    <span id="req1" class="text-red-400">✗</span>
-                                    <span class="text-xs">At least 8 characters</span>
+                            <div class="grid grid-cols-2 gap-1 text-gray-400">
+                                <div class="flex items-center space-x-1">
+                                    <span id="req1" class="text-red-400 text-xs">✗</span>
+                                    <span class="text-xs">8+ chars</span>
                                 </div>
-                                <div class="flex items-center space-x-2">
-                                    <span id="req2" class="text-red-400">✗</span>
-                                    <span class="text-xs">One uppercase letter</span>
+                                <div class="flex items-center space-x-1">
+                                    <span id="req2" class="text-red-400 text-xs">✗</span>
+                                    <span class="text-xs">Uppercase</span>
                                 </div>
-                                <div class="flex items-center space-x-2">
-                                    <span id="req3" class="text-red-400">✗</span>
-                                    <span class="text-xs">One lowercase letter</span>
+                                <div class="flex items-center space-x-1">
+                                    <span id="req3" class="text-red-400 text-xs">✗</span>
+                                    <span class="text-xs">Lowercase</span>
                                 </div>
-                                <div class="flex items-center space-x-2">
-                                    <span id="req4" class="text-red-400">✗</span>
-                                    <span class="text-xs">One number</span>
+                                <div class="flex items-center space-x-1">
+                                    <span id="req4" class="text-red-400 text-xs">✗</span>
+                                    <span class="text-xs">Number</span>
                                 </div>
                             </div>
                         </div>
@@ -268,7 +315,7 @@
                         <input type="password" name="confirmPassword" id="confirmPassword" required placeholder=" " 
                                class="w-full px-4 py-4 rounded-xl apple-glass border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent transition-all duration-300">
                         <label for="confirmPassword" class="floating-label">Confirm Password</label>
-                        <div id="passwordMatch" class="hidden text-xs mt-1 px-2"></div>
+                        <div id="passwordMatch" class="hidden validation-feedback text-xs"></div>
                     </div>
 
                     <!-- Terms and Conditions -->
@@ -545,59 +592,80 @@
             const terms = formData.get('terms');
             const newsletter = formData.get('newsletter');
             
-            // Validation
+            // Enhanced validation
             if (!fullName || fullName.trim().length < 2) {
-                formMessage.textContent = 'Please enter your full name.';
+                formMessage.textContent = 'Please enter your full name (at least 2 characters).';
                 formMessage.className = 'text-red-400 text-center text-sm';
+                formMessage.classList.remove('hidden');
                 return;
             }
-            
-            if (!email || !email.includes('@')) {
+
+            // Email validation
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!email || !emailPattern.test(email.trim())) {
                 formMessage.textContent = 'Please enter a valid email address.';
                 formMessage.className = 'text-red-400 text-center text-sm';
+                formMessage.classList.remove('hidden');
                 return;
             }
-            
+
+            // Password validation
+            if (password.length < 8) {
+                formMessage.textContent = 'Password must be at least 8 characters long.';
+                formMessage.className = 'text-red-400 text-center text-sm';
+                formMessage.classList.remove('hidden');
+                return;
+            }
+
+            if (!/[A-Z]/.test(password)) {
+                formMessage.textContent = 'Password must contain at least one uppercase letter.';
+                formMessage.className = 'text-red-400 text-center text-sm';
+                formMessage.classList.remove('hidden');
+                return;
+            }
+
+            if (!/[a-z]/.test(password)) {
+                formMessage.textContent = 'Password must contain at least one lowercase letter.';
+                formMessage.className = 'text-red-400 text-center text-sm';
+                formMessage.classList.remove('hidden');
+                return;
+            }
+
+            if (!/\d/.test(password)) {
+                formMessage.textContent = 'Password must contain at least one number.';
+                formMessage.className = 'text-red-400 text-center text-sm';
+                formMessage.classList.remove('hidden');
+                return;
+            }
+
             if (password !== confirmPassword) {
                 formMessage.textContent = 'Passwords do not match.';
                 formMessage.className = 'text-red-400 text-center text-sm';
+                formMessage.classList.remove('hidden');
                 return;
             }
-            
-            if (password.length < 6) {
-                formMessage.textContent = 'Password must be at least 6 characters long.';
-                formMessage.className = 'text-red-400 text-center text-sm';
-                return;
-            }
-            
+
             if (!terms) {
                 formMessage.textContent = 'Please accept the Terms of Service and Privacy Policy.';
                 formMessage.className = 'text-red-400 text-center text-sm';
+                formMessage.classList.remove('hidden');
                 return;
             }
-            
+
             // Show loading state
             submitBtn.textContent = 'Creating Account...';
             submitBtn.disabled = true;
             formMessage.textContent = '';
-            formMessage.className = 'hidden';
-            
+            formMessage.classList.add('hidden');
+
             try {
-                // Check if we're running on GitHub Pages (static site) or local Django server
-                const isGitHubPages = window.location.hostname.includes('github.io');
-                
-                if (isGitHubPages) {
-                    // Static fallback for GitHub Pages
-                    formMessage.textContent = 'Signup is currently in development. Contact admin@derivityai.com for early access.';
-                    formMessage.className = 'text-yellow-400 text-center text-sm';
-                    return;
-                }
-                
+                // Always try backend first (no GitHub Pages fallback)
                 const response = await fetch('/api/signup/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
+                    credentials: 'include',
                     body: JSON.stringify({
                         fullName: fullName.trim(),
                         email: email.trim().toLowerCase(),
@@ -606,39 +674,43 @@
                     })
                 });
                 
-                const data = await response.json();
-                
-                if (data.status === 'success') {
-                    formMessage.textContent = data.message || 'Account created successfully! Redirecting to main page...';
-                    formMessage.className = 'text-green-400 text-center text-sm';
-                    form.reset();
+                if (response.ok) {
+                    const data = await response.json();
                     
-                    // Store login state and user data
-                    localStorage.setItem('userEmail', email.trim().toLowerCase());
-                    localStorage.setItem('isLoggedIn', 'true');
-                    
-                    // Store additional user info if available
-                    if (data.user) {
-                        localStorage.setItem('userData', JSON.stringify(data.user));
+                    if (data.status === 'success') {
+                        formMessage.textContent = data.message || 'Account created successfully! Redirecting to main page...';
+                        formMessage.className = 'text-green-400 text-center text-sm';
+                        formMessage.classList.remove('hidden');
+                        form.reset();
+                        
+                        // Store login state and user data
+                        localStorage.setItem('userEmail', email.trim().toLowerCase());
+                        localStorage.setItem('isLoggedIn', 'true');
+                        
+                        // Store additional user info if available
+                        if (data.user) {
+                            localStorage.setItem('userData', JSON.stringify(data.user));
+                        }
+                        
+                        setTimeout(() => {
+                            window.location.href = getBasePath();
+                        }, 2000);
+                    } else {
+                        formMessage.textContent = data.message || 'There was an error creating your account. Please try again.';
+                        formMessage.className = 'text-red-400 text-center text-sm';
+                        formMessage.classList.remove('hidden');
                     }
-                    
-                    setTimeout(() => {
-                        window.location.href = getBasePath();
-                    }, 2000);
                 } else {
-                    formMessage.textContent = data.message || 'There was an error creating your account. Please try again.';
+                    const errorData = await response.json();
+                    formMessage.textContent = errorData.message || 'There was an error creating your account. Please try again.';
                     formMessage.className = 'text-red-400 text-center text-sm';
+                    formMessage.classList.remove('hidden');
                 }
             } catch (error) {
                 console.error('Signup error:', error);
-                // Check if this is a network error due to GitHub Pages
-                if (window.location.hostname.includes('github.io')) {
-                    formMessage.textContent = 'Signup functionality requires the Django backend. Contact admin@derivityai.com for access.';
-                    formMessage.className = 'text-yellow-400 text-center text-sm';
-                } else {
-                    formMessage.textContent = 'Network error. Please check your connection and try again.';
-                    formMessage.className = 'text-red-400 text-center text-sm';
-                }
+                formMessage.textContent = 'Network error. Please check your connection and try again.';
+                formMessage.className = 'text-red-400 text-center text-sm';
+                formMessage.classList.remove('hidden');
             }
             
             // Reset button state
