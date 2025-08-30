@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Signup</title>
+</head>
+<body>
+    <h1>Test Signup Form</h1>
+    <form id="testForm">
+        <input type="text" id="fullName" placeholder="Full Name" value="Test User" required>
+        <input type="email" id="email" placeholder="Email" value="test@example.com" required>
+        <input type="password" id="password" placeholder="Password" value="TestPass123" required>
+        <button type="submit">Sign Up</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('testForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const result = document.getElementById('result');
+            
+            console.log('Test signup starting...');
+            console.log('Protocol:', window.location.protocol);
+            
+            const apiUrl = window.location.protocol === 'file:' 
+                ? 'http://127.0.0.1:8000/api/signup/'
+                : '/api/signup/';
+            
+            console.log('API URL:', apiUrl);
+            
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        fullName: fullName,
+                        email: email,
+                        password: password,
+                        newsletter: false
+                    })
+                });
+                
+                console.log('Response status:', response.status);
+                console.log('Response ok:', response.ok);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('Response data:', data);
+                    result.innerHTML = '<p style="color: green;">Success: ' + JSON.stringify(data) + '</p>';
+                } else {
+                    const errorData = await response.json();
+                    console.log('Error data:', errorData);
+                    result.innerHTML = '<p style="color: red;">Error: ' + JSON.stringify(errorData) + '</p>';
+                }
+            } catch (error) {
+                console.error('Fetch error:', error);
+                result.innerHTML = '<p style="color: red;">Network Error: ' + error.message + '</p>';
+            }
+        });
+    </script>
+</body>
+</html>

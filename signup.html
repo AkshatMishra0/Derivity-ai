@@ -664,6 +664,15 @@
                     ? 'http://127.0.0.1:8000/api/signup/'
                     : '/api/signup/';
                 
+                console.log('Signup attempt - Protocol:', window.location.protocol);
+                console.log('Signup attempt - API URL:', apiUrl);
+                console.log('Signup attempt - Data:', {
+                    fullName: fullName.trim(),
+                    email: email.trim().toLowerCase(),
+                    password: password.substring(0, 3) + '***', // Don't log full password
+                    newsletter: newsletter ? true : false
+                });
+                
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: {
@@ -677,6 +686,9 @@
                         newsletter: newsletter ? true : false
                     })
                 });
+                
+                console.log('Signup response status:', response.status);
+                console.log('Signup response ok:', response.ok);
                 
                 if (response.ok) {
                     const data = await response.json();
@@ -711,8 +723,16 @@
                     formMessage.classList.remove('hidden');
                 }
             } catch (error) {
-                console.error('Signup error:', error);
-                formMessage.textContent = 'Network error. Please check your connection and try again.';
+                console.error('Signup error details:', error);
+                console.error('Error name:', error.name);
+                console.error('Error message:', error.message);
+                
+                // Check specific error types
+                if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                    formMessage.textContent = 'Unable to connect to server. Please ensure the Django server is running at http://127.0.0.1:8000/';
+                } else {
+                    formMessage.textContent = 'Network error. Please check your connection and try again.';
+                }
                 formMessage.className = 'text-red-400 text-center text-sm';
                 formMessage.classList.remove('hidden');
             }

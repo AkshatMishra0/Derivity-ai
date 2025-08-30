@@ -208,15 +208,8 @@ SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
 # CORS settings for development
-CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:8000",
-    "http://localhost:8000",
-    "file://",  # Allow file:// for local development
-]
-
+CORS_ALLOW_ALL_ORIGINS = True  # Allow all origins for development
 CORS_ALLOW_CREDENTIALS = True
-
-CORS_ALLOW_ALL_ORIGINS = True  # Only for development
 
 CORS_ALLOWED_HEADERS = [
     'accept',
@@ -229,4 +222,7 @@ CORS_ALLOWED_HEADERS = [
     'x-csrftoken',
     'x-requested-with',
 ]
+
+# Allow null origin for file:// protocol
+CORS_ALLOW_NULL_ORIGIN = True
 X_FRAME_OPTIONS = 'DENY'
