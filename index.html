@@ -95,13 +95,55 @@
             100% { background-position: 200% 0; }
         }
         
+        @keyframes rainbowShimmer {
+            0% { 
+                background-position: -300% 0;
+            }
+            100% { 
+                background-position: 300% 0;
+            }
+        }
+        
         .gradient-text {
-            background: linear-gradient(135deg, #8d95a1 0%, #6c757d 25%, #495057 50%, #007aff 75%, #5856d6 100%);
-            background-size: 200% auto;
+            background: linear-gradient(90deg, 
+                #ff6b6b 0%,     /* Red */
+                #ff8e3c 14.28%, /* Orange */
+                #ffd93d 28.56%, /* Yellow */
+                #6bcf7f 42.84%, /* Green */
+                #4d96ff 57.12%, /* Blue */
+                #9c88ff 71.4%,  /* Indigo */
+                #ff6bcf 85.68%, /* Violet */
+                #ff6b6b 100%    /* Back to Red */
+            );
+            background-size: 400% 100%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: shimmer 3s linear infinite;
+            animation: rainbowShimmer 3s linear infinite;
+            font-weight: 900;
+        }
+        
+        @keyframes blueGlow {
+            0% { 
+                color: #007aff;
+                text-shadow: 0 0 10px rgba(0, 122, 255, 0.5);
+            }
+            50% { 
+                color: #5856d6;
+                text-shadow: 0 0 20px rgba(88, 86, 214, 0.8), 0 0 30px rgba(0, 122, 255, 0.4);
+            }
+            100% { 
+                color: #007aff;
+                text-shadow: 0 0 10px rgba(0, 122, 255, 0.5);
+            }
+        }
+        
+        .text-apple-blue {
+            animation: blueGlow 3s ease-in-out infinite;
+        }
+        
+        .hero-title {
+            animation: float 6s ease-in-out infinite;
         }
         
         .titanium-border {
@@ -313,7 +355,7 @@
                 </div>
             </div>
             
-            <h1 class="text-4xl sm:text-6xl md:text-8xl font-display font-bold mb-6 sm:mb-8 tracking-tight">
+            <h1 class="hero-title text-4xl sm:text-6xl md:text-8xl font-display font-bold mb-6 sm:mb-8 tracking-tight">
                 <span class="gradient-text">DERIVITY</span>
                 <span class="text-apple-blue">AI</span>
             </h1>
