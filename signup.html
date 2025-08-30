@@ -575,6 +575,29 @@
             }
         });
         
+        // Backup signup function - fallback for direct server submission
+        async function backupSignup(formData) {
+            console.log('Using backup signup method...');
+            
+            // Create a hidden form for direct server submission
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'http://127.0.0.1:8000/api/signup/';
+            form.style.display = 'none';
+            
+            // Add form fields
+            Object.entries(formData).forEach(([key, value]) => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = value;
+                form.appendChild(input);
+            });
+            
+            document.body.appendChild(form);
+            form.submit();
+        }
+        
         // Sign-up form submission
         document.getElementById('signupForm').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -659,36 +682,54 @@
             formMessage.classList.add('hidden');
 
             try {
-                // Determine the correct API URL
-                const apiUrl = window.location.protocol === 'file:' 
-                    ? 'http://127.0.0.1:8000/api/signup/'
-                    : '/api/signup/';
+                // Multiple URL attempts for maximum compatibility
+                const baseUrls = [
+                    'http://127.0.0.1:8000/api/signup/',
+                    'http://localhost:8000/api/signup/',
+                    '/api/signup/'
+                ];
                 
-                console.log('Signup attempt - Protocol:', window.location.protocol);
-                console.log('Signup attempt - API URL:', apiUrl);
-                console.log('Signup attempt - Data:', {
-                    fullName: fullName.trim(),
-                    email: email.trim().toLowerCase(),
-                    password: password.substring(0, 3) + '***', // Don't log full password
-                    newsletter: newsletter ? true : false
-                });
+                let response = null;
+                let lastError = null;
                 
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    credentials: 'include',
-                    body: JSON.stringify({
-                        fullName: fullName.trim(),
-                        email: email.trim().toLowerCase(),
-                        password: password,
-                        newsletter: newsletter ? true : false
-                    })
-                });
+                // Try each URL until one works
+                for (const apiUrl of baseUrls) {
+                    try {
+                        console.log('Trying signup with URL:', apiUrl);
+                        
+                        response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            mode: 'cors',
+                            credentials: 'include',
+                            body: JSON.stringify({
+                                fullName: fullName.trim(),
+                                email: email.trim().toLowerCase(),
+                                password: password,
+                                newsletter: newsletter ? true : false
+                            })
+                        });
+                        
+                        console.log('Response status for', apiUrl, ':', response.status);
+                        
+                        if (response.ok || response.status < 500) {
+                            break; // Success or client error, stop trying
+                        }
+                    } catch (error) {
+                        console.log('Failed with URL', apiUrl, ':', error.message);
+                        lastError = error;
+                        continue; // Try next URL
+                    }
+                }
                 
-                console.log('Signup response status:', response.status);
-                console.log('Signup response ok:', response.ok);
+                if (!response) {
+                    throw lastError || new Error('All connection attempts failed');
+                }
+                
+                console.log('Final response status:', response.status);
+                console.log('Final response ok:', response.ok);
                 
                 if (response.ok) {
                     const data = await response.json();
@@ -726,14 +767,20 @@
                 console.error('Signup error details:', error);
                 console.error('Error name:', error.name);
                 console.error('Error message:', error.message);
+                console.error('Full error:', JSON.stringify(error, Object.getOwnPropertyNames(error)));
                 
-                // Check specific error types
-                if (error.name === 'TypeError' && error.message.includes('fetch')) {
-                    formMessage.textContent = 'Unable to connect to server. Please ensure the Django server is running at http://127.0.0.1:8000/';
-                } else {
-                    formMessage.textContent = 'Network error. Please check your connection and try again.';
-                }
-                formMessage.className = 'text-red-400 text-center text-sm';
+                // Ultimate fallback - show detailed instructions
+                formMessage.innerHTML = `
+                    <div class="text-red-400 text-center text-sm space-y-2">
+                        <p><strong>Connection Failed!</strong></p>
+                        <p>Please ensure Django server is running:</p>
+                        <p class="text-xs font-mono bg-gray-800 p-2 rounded">python manage.py runserver</p>
+                        <p>Then try again or contact support.</p>
+                        <button onclick="window.location.reload()" class="mt-2 px-4 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">
+                            Retry
+                        </button>
+                    </div>
+                `;
                 formMessage.classList.remove('hidden');
             }
             
