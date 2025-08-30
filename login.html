@@ -328,8 +328,13 @@
                     return;
                 }
                 
+                // Determine the correct API URL
+                const apiUrl = window.location.protocol === 'file:' 
+                    ? 'http://127.0.0.1:8000/api/login/'
+                    : '/api/login/';
+                
                 // Try Django backend login with enhanced error handling
-                const response = await fetch('/api/login/', {
+                const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

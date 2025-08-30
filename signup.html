@@ -659,8 +659,12 @@
             formMessage.classList.add('hidden');
 
             try {
-                // Always try backend first (no GitHub Pages fallback)
-                const response = await fetch('/api/signup/', {
+                // Determine the correct API URL
+                const apiUrl = window.location.protocol === 'file:' 
+                    ? 'http://127.0.0.1:8000/api/signup/'
+                    : '/api/signup/';
+                
+                const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
