@@ -46,13 +46,7 @@ class DerivityNavigation {
         Object.entries(navButtons).forEach(([page, buttons]) => {
             buttons.forEach(button => {
                 button.addEventListener('click', (e) => {
-                    // Check if AI interface requires login
-                    if (page === 'ai-interface.html' && !this.isLoggedIn) {
-                        e.preventDefault();
-                        this.showLoginRequired();
-                        return;
-                    }
-                    
+                    // AI interface is now open to everyone (shows coming soon page)
                     // Check if dashboard requires login
                     if (page === 'dashboard.html' && !this.isLoggedIn) {
                         e.preventDefault();
@@ -109,17 +103,13 @@ class DerivityNavigation {
 
     // CTA and action buttons
     bindCTAButtons() {
-        // "Try Now", "Get Started", "Start Free Beta" buttons
+        // "Try Now", "Get Started", "Start Free Beta" buttons - AI interface is now open to all
         document.querySelectorAll('button[onclick*="Start"], button[onclick*="Try"], a[href*="ai-interface"]').forEach(button => {
             if (!button.dataset.bound) {
                 button.dataset.bound = 'true';
                 button.addEventListener('click', (e) => {
-                    if (!this.isLoggedIn && !button.getAttribute('href')) {
-                        e.preventDefault();
-                        this.showLoginRequired();
-                    } else {
-                        this.addClickEffect(button);
-                    }
+                    // Allow direct access to AI interface (shows coming soon page)
+                    this.addClickEffect(button);
                 });
             }
         });
