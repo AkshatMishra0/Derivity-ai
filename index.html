@@ -822,62 +822,8 @@
             }
 
             function showAIInterfacePage() {
-                const modal = document.createElement('div');
-                modal.className = 'fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto';
-                modal.innerHTML = `
-                    <div class="apple-glass border border-white/20 rounded-3xl p-8 max-w-4xl w-full relative my-8">
-                        <button onclick="closeModal()" class="absolute top-6 right-6 text-white hover:text-apple-blue transition-colors z-10">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
-                        <div class="text-center mb-12">
-                            <h2 class="text-4xl font-bold gradient-text mb-4">AI Interface</h2>
-                            <p class="text-xl text-dark-200">Experience the future of AI interaction</p>
-                        </div>
-                        <div class="bg-white/5 rounded-2xl p-6 mb-8">
-                            <div class="flex items-center mb-4">
-                                <div class="w-8 h-8 bg-apple-blue rounded-full mr-3"></div>
-                                <span class="text-white font-semibold">Derivity AI</span>
-                            </div>
-                            <div class="space-y-4">
-                                <div class="bg-white/10 rounded-xl p-4">
-                                    <p class="text-dark-100">Hello! I'm Derivity AI. I can help you with various tasks including:</p>
-                                    <ul class="mt-3 space-y-2 text-dark-200">
-                                        <li>• Writing and content creation</li>
-                                        <li>• Data analysis and insights</li>
-                                        <li>• Code generation and debugging</li>
-                                        <li>• Creative brainstorming</li>
-                                        <li>• Research and summarization</li>
-                                    </ul>
-                                </div>
-                                <div class="flex items-start space-x-3">
-                                    <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex-shrink-0"></div>
-                                    <div class="bg-apple-blue/20 rounded-xl p-4 flex-1">
-                                        <p class="text-white">How can I help you revolutionize your workflow today?</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-4">
-                            <input type="text" placeholder="Ask me anything..." class="flex-1 px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-dark-300 focus:border-apple-blue focus:outline-none transition-colors">
-                            <button class="bg-apple-blue hover:bg-apple-indigo px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300 transform hover:scale-105">
-                                Send
-                            </button>
-                        </div>
-                        <div class="text-center mt-8 p-6 bg-white/5 rounded-2xl">
-                            <h3 class="text-xl font-bold text-white mb-2">Coming Soon!</h3>
-                            <p class="text-dark-200">Our full AI interface is in development. Sign up to be the first to experience it!</p>
-                            <button onclick="closeModal(); showLoginPage()" class="mt-4 bg-apple-blue hover:bg-apple-indigo px-6 py-3 rounded-full font-semibold text-white transition-all duration-300 transform hover:scale-105">
-                                Join Beta
-                            </button>
-                        </div>
-                    </div>
-                `;
-                document.body.appendChild(modal);
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) closeModal();
-                });
+                // Redirect directly to AI interface page
+                window.location.href = 'ai-interface.html';
             }
 
             function showFeaturesPage() {
@@ -957,7 +903,7 @@
                                 <button onclick="closeModal(); showLoginPage()" class="bg-apple-blue hover:bg-apple-indigo px-8 py-3 rounded-full font-semibold text-white transition-all duration-300 transform hover:scale-105">
                                     Start Free Trial
                                 </button>
-                                <button onclick="closeModal(); showAIInterfacePage()" class="apple-glass border border-white/20 text-dark-100 hover:bg-white/10 px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105">
+                                <button onclick="closeModal(); window.location.href='ai-interface.html'" class="apple-glass border border-white/20 text-dark-100 hover:bg-white/10 px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105">
                                     Try Demo
                                 </button>
                             </div>
